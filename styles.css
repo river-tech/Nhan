@@ -1,0 +1,1188 @@
+/* ============================================
+   BƯỚC 1: ĐỊNH NGHĨA THEME (XANH DƯƠNG + TRẮNG)
+   ============================================ */
+:root {
+    --blue-900: #0A1B3D;
+    --blue-700: #0B3A82;
+    --blue-500: #1E6DFF;
+    --white: #FFFFFF;
+    --gray-100: #F5F7FB;
+    --shadow: rgba(0, 0, 0, 0.25);
+    --shadow-dark: rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================
+   KEYFRAMES ANIMATIONS
+   ============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(8px, 10px) translateY(0);
+    }
+    50% {
+        transform: translate(8px, 10px) translateY(-10px);
+    }
+}
+
+@keyframes floatShape {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 3px 12px rgba(30, 109, 255, 0.4);
+    }
+    50% {
+        box-shadow: 0 3px 20px rgba(30, 109, 255, 0.6);
+    }
+}
+
+@keyframes slideInStagger {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes lightning {
+    0%, 88%, 100% {
+        opacity: 0;
+        filter: brightness(1);
+    }
+    2%, 4% {
+        opacity: 0.6;
+        filter: brightness(2.5);
+    }
+    3% {
+        opacity: 0.8;
+        filter: brightness(3);
+    }
+    6%, 8% {
+        opacity: 0.4;
+        filter: brightness(2);
+    }
+    10%, 12% {
+        opacity: 0;
+        filter: brightness(1);
+    }
+    15%, 17% {
+        opacity: 0.5;
+        filter: brightness(2.2);
+    }
+    16% {
+        opacity: 0.7;
+        filter: brightness(2.8);
+    }
+    20%, 22% {
+        opacity: 0;
+        filter: brightness(1);
+    }
+    30%, 32% {
+        opacity: 0.4;
+        filter: brightness(2);
+    }
+    31% {
+        opacity: 0.6;
+        filter: brightness(2.5);
+    }
+    35%, 100% {
+        opacity: 0;
+        filter: brightness(1);
+    }
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', 'Montserrat', system-ui, -apple-system, sans-serif;
+    background: var(--blue-900);
+    color: var(--white);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    line-height: 1.4;
+}
+
+/* ============================================
+   HERO CONTAINER
+   ============================================ */
+.hero {
+    display: grid;
+    min-height: 100svh;
+    width: 100vw;
+    position: relative;
+    /* Fallback background color */
+    background-color: #0A1B3D;
+    /* Desktop/Tablet background image (>= 640px) */
+    background-image: url('bg_1.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 1rem clamp(16px, 4vw, 18px);
+    overflow: hidden;
+}
+
+/* Background pattern overlay - z-index 0 */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(30, 109, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(11, 58, 130, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Mobile background image (< 640px) */
+@media (max-width: 639px) {
+    .hero {
+        background-image: url('bg_2.jpeg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+
+/* ============================================
+   CSS LIGHTNING EFFECT (No Three.js)
+   ============================================ */
+.hero__lightning {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.hero__lightning.active {
+    opacity: 1;
+}
+
+/* Lightning bolt SVG paths */
+.lightning-bolt {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.lightning-bolt svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* Lightning bolt paths - multiple variations */
+.lightning-bolt-1 {
+    top: 10%;
+    right: 15%;
+    width: 200px;
+    height: 400px;
+    animation: lightningStrike1 0.15s ease-out forwards;
+}
+
+.lightning-bolt-2 {
+    top: 25%;
+    right: 25%;
+    width: 150px;
+    height: 350px;
+    animation: lightningStrike2 0.12s ease-out 0.05s forwards;
+}
+
+.lightning-bolt-3 {
+    top: 40%;
+    right: 20%;
+    width: 180px;
+    height: 300px;
+    animation: lightningStrike3 0.18s ease-out 0.1s forwards;
+}
+
+/* Lightning glow effect */
+.lightning-glow {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 300px;
+    height: 500px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(30, 109, 255, 0.4) 0%,
+        rgba(30, 109, 255, 0.2) 30%,
+        rgba(30, 109, 255, 0.1) 50%,
+        transparent 80%
+    );
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0;
+    animation: lightningGlow 0.3s ease-out forwards;
+}
+
+/* Lightning animations */
+@keyframes lightningStrike1 {
+    0% {
+        opacity: 0;
+        transform: scaleY(0) translateX(-20px);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleY(1) translateX(0);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scaleY(1) translateX(5px);
+    }
+}
+
+@keyframes lightningStrike2 {
+    0% {
+        opacity: 0;
+        transform: scaleY(0) translateX(-15px) rotate(-5deg);
+    }
+    40% {
+        opacity: 1;
+        transform: scaleY(1) translateX(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0.5;
+        transform: scaleY(1) translateX(3px) rotate(2deg);
+    }
+}
+
+@keyframes lightningStrike3 {
+    0% {
+        opacity: 0;
+        transform: scaleY(0) translateX(-25px) rotate(5deg);
+    }
+    45% {
+        opacity: 1;
+        transform: scaleY(1) translateX(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0.4;
+        transform: scaleY(1) translateX(-5px) rotate(-3deg);
+    }
+}
+
+@keyframes lightningGlow {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    30% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+/* Lightning flash effect on model */
+.modelImg.lightning-flash {
+    filter: brightness(1.3) contrast(1.1) drop-shadow(0 0 30px rgba(30, 109, 255, 0.6));
+    transition: filter 0.2s ease-out;
+}
+
+/* Hero right glow effect */
+.hero__right.lightning-active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at 70% 30%,
+        rgba(30, 109, 255, 0.3) 0%,
+        rgba(30, 109, 255, 0.15) 30%,
+        transparent 60%
+    );
+    pointer-events: none;
+    z-index: 0;
+    animation: heroGlow 0.4s ease-out forwards;
+}
+
+@keyframes heroGlow {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Fallback: PNG Lightning effect overlay - z-index 0 */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('src/assets/lightning.png');
+    background-size: contain;
+    background-position: top right;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    /* Fallback chỉ hiện khi WebGL fails */
+    display: none;
+}
+
+/* Show PNG fallback when WebGL not available */
+.hero.webgl-fallback::after {
+    display: block;
+    opacity: 0.5;
+    animation: lightningPulse 6s ease-in-out infinite;
+}
+
+@keyframes lightningPulse {
+    0%, 100% {
+        opacity: 0.5;
+        filter: brightness(1);
+    }
+    50% {
+        opacity: 0.65;
+        filter: brightness(1.2);
+    }
+}
+
+/* ============================================
+   OVERLAY GRADIENT - BẢO VỆ TEXT KHÔNG BỊ CHE
+   Dòng này fix text bị che - z-index 2
+   ============================================ */
+.hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(10, 27, 61, 0.98) 0%,
+        rgba(10, 27, 61, 0.95) 35%,
+        rgba(10, 27, 61, 0.85) 50%,
+        rgba(10, 27, 61, 0.65) 60%,
+        rgba(10, 27, 61, 0.35) 70%,
+        rgba(10, 27, 61, 0.0) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ============================================
+   DECORATIVE SHAPES - z-index 0
+   ============================================ */
+.shape {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.25;
+    z-index: 0;
+}
+
+.shape-1 {
+    width: 200px;
+    height: 200px;
+    background: var(--blue-500);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    top: -50px;
+    right: -30px;
+    transform: rotate(45deg);
+    filter: blur(30px);
+}
+
+.shape-2 {
+    width: 150px;
+    height: 150px;
+    background: var(--blue-700);
+    border-radius: 50%;
+    top: 15%;
+    left: -40px;
+    filter: blur(25px);
+}
+
+.shape-3 {
+    width: 100px;
+    height: 300px;
+    background: linear-gradient(180deg, var(--blue-500), transparent);
+    border-radius: 40px;
+    bottom: -80px;
+    right: 8%;
+    transform: rotate(-20deg);
+    filter: blur(15px);
+}
+
+/* ============================================
+   HERO CONTENT - MOBILE 2 CỘT
+   Dòng này fix mobile 2 cột - z-index 3
+   ============================================ */
+.hero__content {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: clamp(8px, 1.5vw, 10px);
+    position: relative;
+    z-index: 3;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+}
+
+/* ============================================
+   LEFT COLUMN: TEXT CONTENT
+   ============================================ */
+.hero__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.75rem clamp(12px, 3vw, 20px) 0.75rem 0.75rem;
+    justify-content: flex-start;
+    position: relative;
+    z-index: 3;
+    max-width: 100%;
+    min-height: 100%;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--blue-500);
+    background: rgba(30, 109, 255, 0.15);
+    padding: 0.35rem 0.7rem;
+    border-radius: 12px;
+    width: fit-content;
+    text-transform: uppercase;
+    line-height: 1.2;
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.main-title {
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin: 0;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    margin: 0;
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* ============================================
+   BULLET LIST
+   ============================================ */
+.bullet-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0.25rem 0;
+}
+
+.bullet-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: var(--white);
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    animation: slideInStagger 0.6s ease-out both;
+}
+.bullet-list li{
+    position: relative;
+    padding: 4px 6px;
+    border-radius: 8px;
+  }
+  
+  .bullet-list li::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(10,27,61,0.22);   /* nền tối rất nhẹ */
+    backdrop-filter: blur(2px);
+    border-radius: 8px;
+    z-index: -1;
+  }
+
+.bullet-list li:nth-child(1) {
+    animation-delay: 0.5s;
+}
+
+.bullet-list li:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.bullet-list li:nth-child(3) {
+    animation-delay: 0.7s;
+}
+
+.bullet-list li:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+.bullet-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: var(--blue-500);
+    color: var(--white);
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 10px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   SERVICES BADGES
+   ============================================ */
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.25rem 0;
+}
+
+.service-badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--white);
+    transition: all 0.3s ease;
+    cursor: default;
+    line-height: 1.2;
+    animation: fadeInUp 0.6s ease-out 0.7s both;
+}
+
+.service-badge:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   CTA BUTTON
+   ============================================ */
+.cta-button {
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--white);
+    background: var(--blue-500);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 12px rgba(30, 109, 255, 0.4);
+    width: fit-content;
+    margin: 0.25rem 0;
+    animation: fadeInUp 0.6s ease-out 0.8s forwards, pulse 2s ease-in-out 1.5s infinite;
+    opacity: 1;
+}
+
+.cta-button:hover {
+    background: #2a7dff;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(30, 109, 255, 0.6);
+    animation: pulse 2s ease-in-out infinite;
+    opacity: 1;
+}
+
+.cta-button:active {
+    transform: translateY(0) scale(1);
+}
+
+/* ============================================
+   CONTACT INFO
+   ============================================ */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInUp 0.6s ease-out 0.9s both;
+}
+
+.contact-item {
+    display: flex;
+    gap: 0.4rem;
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+.contact-label {
+    font-weight: 600;
+    color: var(--gray-100);
+}
+
+.contact-value {
+    color: var(--white);
+    font-weight: 400;
+}
+
+/* ============================================
+   SOCIAL ICONS
+   ============================================ */
+.social-icons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInUp 0.6s ease-out 1s both;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: var(--white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.social-icon:hover {
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.social-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Instagram - Gradient màu hồng/tím/cam */
+.social-icon--instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border: none;
+}
+
+.social-icon--instagram:hover {
+    background: linear-gradient(45deg, #f5a742 0%, #ea7a4f 25%, #e23d56 50%, #d42d75 75%, #c7259a 100%);
+    box-shadow: 0 4px 15px rgba(225, 48, 108, 0.4);
+}
+
+/* TikTok - Màu đen */
+.social-icon--tiktok {
+    background: #000000;
+    border: none;
+}
+
+.social-icon--tiktok:hover {
+    background: #1a1a1a;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Facebook - Màu xanh dương */
+.social-icon--facebook {
+    background: #1877F2;
+    border: none;
+}
+
+.social-icon--facebook:hover {
+    background: #166FE5;
+    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.4);
+}
+
+/* ============================================
+   RIGHT COLUMN: MODEL IMAGE
+   Dòng này fix scale nhân vật - z-index 1
+   ============================================ */
+.hero__right {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    overflow: visible;
+    z-index: 1;
+}
+
+.modelImg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: clamp(520px, 90svh, 780px);
+    width: auto;
+    max-width: 55%;
+    object-fit: contain;
+    object-position: bottom right;
+    display: block;
+    filter: drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.3)) contrast(1.05) brightness(1.02);
+    transform: translate(8px, 10px);
+    z-index: 1;
+    animation: fadeInRight 1s ease-out 0.4s both, float 3s ease-in-out 1.5s infinite;
+    transition: filter 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+
+/* Lightning flash effect on model - Glow mềm mại loe tròn như giông bão */
+.modelImg.lightning-flash {
+    filter: drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.3)) 
+            contrast(1.12) 
+            brightness(1.2);
+    animation: fadeInRight 1s ease-out 0.4s both, 
+               float 3s ease-in-out 1.5s infinite,
+               lightningFlashGlow 0.2s ease-out;
+}
+
+/* Tạo hiệu ứng glow loe tròn bằng pseudo-element - MỊN HƠN & RỘNG HƠN */
+.hero__right::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(30, 109, 255, 0.5) 0%,
+        rgba(30, 109, 255, 0.35) 15%,
+        rgba(30, 109, 255, 0.25) 30%,
+        rgba(30, 109, 255, 0.15) 45%,
+        rgba(30, 109, 255, 0.1) 60%,
+        rgba(30, 109, 255, 0.05) 75%,
+        transparent 90%
+    );
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transform: translate(50%, -50%);
+    transition: opacity 0.1s ease-out;
+    filter: blur(20px); /* Thêm blur để mịn hơn */
+}
+
+.hero__right.lightning-glow::before {
+    opacity: 1;
+    animation: lightningGlowExpand 0.25s ease-out;
+}
+
+@keyframes lightningFlashGlow {
+    0% {
+        filter: drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.3)) 
+                contrast(1.05) 
+                brightness(1.02);
+    }
+    30% {
+        filter: drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.3)) 
+                contrast(1.18) 
+                brightness(1.3)
+                drop-shadow(0 0 80px rgba(30, 109, 255, 0.5))
+                drop-shadow(0 0 150px rgba(30, 109, 255, 0.35))
+                drop-shadow(0 0 220px rgba(30, 109, 255, 0.25))
+                drop-shadow(0 0 300px rgba(30, 109, 255, 0.15));
+    }
+    100% {
+        filter: drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.3)) 
+                contrast(1.12) 
+                brightness(1.2)
+                drop-shadow(0 0 60px rgba(30, 109, 255, 0.4))
+                drop-shadow(0 0 120px rgba(30, 109, 255, 0.3))
+                drop-shadow(0 0 180px rgba(30, 109, 255, 0.2))
+                drop-shadow(0 0 240px rgba(30, 109, 255, 0.1));
+    }
+}
+
+@keyframes lightningGlowExpand {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+    40% {
+        width: 500px;
+        height: 500px;
+        opacity: 0.9;
+    }
+    70% {
+        width: 800px;
+        height: 800px;
+        opacity: 0.6;
+    }
+    100% {
+        width: 1000px;
+        height: 1000px;
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+   @media (max-width: 639px) {
+    .contact-info{
+        position: relative;
+        padding: 10px 12px;
+        border-radius: 12px;
+    
+        /* glass nền */
+        background: rgba(10, 27, 61, 0.35);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    
+        border: 1px solid rgba(255,255,255,0.14);
+        box-shadow:
+          inset 0 0 0 1px rgba(255,255,255,0.04),
+          0 6px 20px rgba(0,0,0,0.3);
+    
+        z-index: 4; /* luôn nổi trên body */
+      }
+    
+      .contact-label{
+        color: rgba(255,255,255,0.7);
+        font-weight: 600;
+      }
+    
+      .contact-value{
+        color: rgba(255,255,255,0.95);
+        font-weight: 500;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+      }
+    
+      /* divider mảnh giữa các dòng */
+      .contact-item + .contact-item{
+        margin-top: 6px;
+        padding-top: 6px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+      }
+    
+    /* overlay bảo vệ chữ (giữ như bạn nhưng tối ưu mượt hơn) */
+    .hero__overlay{
+      background: linear-gradient(
+        90deg,
+        rgba(10, 27, 61, 0.99) 0%,
+        rgba(10, 27, 61, 0.96) 38%,
+        rgba(10, 27, 61, 0.78) 58%,
+        rgba(10, 27, 61, 0.42) 74%,
+        rgba(10, 27, 61, 0.12) 88%,
+        rgba(10, 27, 61, 0.00) 100%
+      );
+    }
+  
+    /* GIỮ 2 CỘT nhưng KHÔNG bóp cả layout */
+    .hero__content{
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 10px;
+      width: 100%;
+      max-width: 100%;          /* <-- bỏ max-width 65% */
+    }
+  
+    /* safe-zone cho chữ: chỉ giới hạn cột trái */
+    .hero__left{
+      max-width: 68vw;          /* chữ được phép đè nhẹ lên nhân vật */
+      padding-right: 12px;
+      z-index: 4;               /* chữ luôn trên */
+    }
+    .main-title, .subtitle, .bullet-list li{
+        text-shadow: 0 2px 10px rgba(0,0,0,0.65);
+      }
+  
+    /* KHÔNG dùng static, để relative để ảnh absolute bám đúng */
+    .hero__right{
+      position: relative;
+      z-index: 1;
+    }
+  
+    /* Nhân vật: to, đứng sàn, lệch phải vừa đủ, không “kì” */
+    .modelImg{
+      height: clamp(640px, 92svh, 900px);
+      width: auto;
+      max-width: none;
+      object-fit: contain;
+      object-position: bottom right;
+  
+      /* dịch nhẹ thôi để vừa đẹp + cho chữ đè chút */
+      transform: translate(18px, 14px) scale(1.05);
+      transform-origin: bottom right;
+  
+      z-index: 1;
+    }
+  
+    /* tăng độ rõ chữ (giữ) */
+    .subtitle,
+    .bullet-list li{
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.75), 0 0 10px rgba(0,0,0,0.45);
+    }
+  
+    /* CTA nổi trên body */
+    .cta-button{
+      position: relative;
+      z-index: 5;
+      background: rgba(30, 109, 255, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+  
+    /* badges “premium” hơn */
+    .service-badge{
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+  }
+
+/* Tablet: 640px - 1024px */
+@media (min-width: 640px) {
+    .hero {
+        padding: 2rem 1.5rem;
+    }
+    
+    .hero__content {
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 1rem;
+    }
+    
+    .hero__left {
+        padding: 1rem clamp(10px, 2vw, 24px) 1rem 1.5rem;
+        gap: 0.85rem;
+    }
+    
+    .tag {
+        font-size: 11px;
+        padding: 0.4rem 0.85rem;
+    }
+    
+    .main-title {
+        font-size: clamp(28px, 4vw, 42px);
+    }
+    
+    .subtitle {
+        font-size: 13px;
+    }
+    
+    .bullet-list li {
+        font-size: 13px;
+    }
+    
+    .bullet-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+    }
+    
+    .service-badge {
+        font-size: 11px;
+        padding: 0.45rem 0.9rem;
+    }
+    
+    .cta-button {
+        font-size: 14px;
+        padding: 0.75rem 1.8rem;
+    }
+    
+    .contact-item {
+        font-size: 12px;
+    }
+    
+    .modelImg {
+        height: clamp(600px, 92svh, 880px);
+        transform: translate(12px, 15px);
+    }
+    
+    .hero__overlay {
+        background: linear-gradient(
+            90deg,
+            rgba(10, 27, 61, 0.95) 0%,
+            rgba(10, 27, 61, 0.80) 42%,
+            rgba(10, 27, 61, 0.40) 68%,
+            rgba(10, 27, 61, 0.0) 100%
+        );
+    }
+}
+
+/* Desktop: > 1024px */
+@media (min-width: 1024px) {
+    .hero {
+        padding: 3rem 2rem;
+    }
+    
+    .hero__content {
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .hero__left {
+        padding: 2rem 0.5rem 2rem 2rem;
+        gap: 1.5rem;
+        justify-content: center;
+        max-width: 100%;
+    }
+    
+    .tag {
+        font-size: 12px;
+        padding: 0.5rem 1rem;
+    }
+    
+    .main-title {
+        font-size: clamp(42px, 5vw, 64px);
+        line-height: 1.1;
+    }
+    
+    .subtitle {
+        font-size: clamp(14px, 2vw, 18px);
+    }
+    
+    .bullet-list {
+        gap: 0.75rem;
+    }
+    
+    .bullet-list li {
+        font-size: clamp(14px, 1.8vw, 16px);
+    }
+    
+    .bullet-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+    }
+    
+    .service-badge {
+        font-size: clamp(12px, 1.5vw, 14px);
+        padding: 0.6rem 1.2rem;
+    }
+    
+    .cta-button {
+        font-size: clamp(16px, 2vw, 18px);
+        padding: 1rem 2.5rem;
+    }
+    
+    .contact-item {
+        font-size: clamp(13px, 1.8vw, 15px);
+    }
+    
+    .modelImg {
+        height: clamp(850px, 85vh, 1100px);
+        max-width: 68%;
+        transform: translate(20px, 18px) scale(1.22);
+        transform-origin: bottom right;
+    }
+    
+    .hero__overlay {
+        background: linear-gradient(
+            90deg,
+            rgba(10, 27, 61, 0.96) 0%,
+            rgba(10, 27, 61, 0.82) 45%,
+            rgba(10, 27, 61, 0.35) 70%,
+            rgba(10, 27, 61, 0.0) 100%
+        );
+    }
+    
+    .shape-1 {
+        width: 400px;
+        height: 400px;
+    }
+    
+    .shape-2 {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+/* Large Desktop: > 1440px */
+@media (min-width: 1440px) {
+    .hero__content {
+        max-width: 1400px;
+        gap: 0;
+    }
+    
+    .modelImg {
+        height: clamp(900px, 88vh, 1150px);
+        max-width: 72%;
+        transform: translate(20px, 18px) scale(1.25);
+        transform-origin: bottom right;
+    }
+}
