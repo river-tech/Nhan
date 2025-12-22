@@ -1,14 +1,35 @@
 /* ============================================
-   BƯỚC 1: ĐỊNH NGHĨA THEME (XANH DƯƠNG + TRẮNG)
+   DARK-WATER FITNESS THEME - PREMIUM
    ============================================ */
 :root {
-    --blue-900: #0A1B3D;
-    --blue-700: #0B3A82;
-    --blue-500: #1E6DFF;
+    /* Dark Water Palette */
+    --black: #000000;
+    --navy-blue: #0A1628;
+    --dark-navy: #050A14;
+    --dark-teal: #0D1F2E;
+    --deep-teal: #0F2535;
+    --charcoal: #1A1A1A;
+    --dark-gray: #2D2D2D;
+    
+    /* Water Accents */
+    --water-blue: #1E3A5F;
+    --water-teal: #1A4A5C;
+    --cool-blue-white: #B8E6FF;
+    --rim-light: rgba(184, 230, 255, 0.6);
+    
+    /* Text Colors */
     --white: #FFFFFF;
-    --gray-100: #F5F7FB;
-    --shadow: rgba(0, 0, 0, 0.25);
-    --shadow-dark: rgba(0, 0, 0, 0.4);
+    --light-gray: #E0E0E0;
+    --silver: #C0C0C0;
+    
+    /* Primary CTA - Electric Blue */
+    --electric-blue: #1E6DFF;
+    --electric-blue-glow: rgba(30, 109, 255, 0.4);
+    
+    /* Shadows */
+    --shadow: rgba(0, 0, 0, 0.4);
+    --shadow-dark: rgba(0, 0, 0, 0.6);
+    --shadow-light: rgba(0, 0, 0, 0.2);
 }
 
 /* ============================================
@@ -65,10 +86,10 @@
 
 @keyframes pulse {
     0%, 100% {
-        box-shadow: 0 3px 12px rgba(30, 109, 255, 0.4);
+        box-shadow: 0 3px 12px var(--electric-blue-glow), 0 0 20px rgba(30, 109, 255, 0.3);
     }
     50% {
-        box-shadow: 0 3px 20px rgba(30, 109, 255, 0.6);
+        box-shadow: 0 3px 20px rgba(30, 109, 255, 0.6), 0 0 30px rgba(30, 109, 255, 0.5);
     }
 }
 
@@ -139,7 +160,7 @@ html, body {
 
 body {
     font-family: 'Inter', 'Montserrat', system-ui, -apple-system, sans-serif;
-    background: var(--blue-900);
+    background: var(--black);
     color: var(--white);
     overflow-x: hidden;
     overflow-y: hidden;
@@ -154,8 +175,8 @@ body {
     min-height: 100svh;
     width: 100vw;
     position: relative;
-    /* Fallback background color */
-    background-color: #0A1B3D;
+    /* Fallback background - Deep black, navy blue, dark teal gradient */
+    background: linear-gradient(135deg, var(--black) 0%, var(--navy-blue) 30%, var(--dark-teal) 60%, var(--deep-teal) 100%);
     /* Desktop/Tablet background image (>= 640px) */
     background-image: url('bg_1.jpeg');
     background-size: cover;
@@ -165,7 +186,7 @@ body {
     overflow: hidden;
 }
 
-/* Background pattern overlay - z-index 0 */
+/* Background pattern overlay - Water energy lighting from upper-right - z-index 0 */
 .hero::before {
     content: '';
     position: absolute;
@@ -174,8 +195,9 @@ body {
     right: 0;
     bottom: 0;
     background-image: 
-        radial-gradient(circle at 20% 50%, rgba(30, 109, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(11, 58, 130, 0.15) 0%, transparent 50%);
+        radial-gradient(ellipse at 85% 15%, rgba(30, 58, 95, 0.15) 0%, transparent 40%),
+        radial-gradient(ellipse at 75% 25%, rgba(26, 74, 92, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 35%, rgba(184, 230, 255, 0.08) 0%, transparent 45%);
     pointer-events: none;
     z-index: 0;
 }
@@ -188,157 +210,341 @@ body {
         background-position: center;
         background-repeat: no-repeat;
     }
+    
+    /* Mobile: Even more subtle water effect, strictly right/lower area */
+    .hero__water {
+        width: 45%; /* Further reduced on mobile */
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 35% 100%);
+    }
+    
+    .water-stream-1,
+    .water-stream-2 {
+        width: 100px;
+        height: 240px;
+        filter: blur(12px);
+    }
+    
+    .water-stream-1 {
+        top: 55%;
+        right: 10%;
+    }
+    
+    .water-stream-2 {
+        top: 70%;
+        right: 14%;
+    }
+    
+    .water-splash-1 {
+        width: 140px;
+        height: 140px;
+        top: 65%;
+        right: 12%;
+    }
+    
+    .water-energy-glow {
+        width: 280px;
+        height: 280px;
+    }
+    
+    /* Reduce mist particles on mobile */
+    .mist-particle {
+        width: 1.5px;
+        height: 1.5px;
+        background: rgba(255, 255, 255, 0.05);
+    }
 }
 
 /* ============================================
-   CSS LIGHTNING EFFECT (No Three.js)
+   WATER EFFECT - Cinematic Premium Energy Aura
    ============================================ */
-.hero__lightning {
+.hero__water {
     position: absolute;
     top: 0;
     right: 0;
-    width: 50%;
+    width: 50%; /* Reduced width - keep water to right side */
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 1; /* Behind model (z-index 2) */
     overflow: hidden;
     opacity: 0;
+    transform-origin: top right;
+    /* Clip to right and lower area only */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
 }
 
-.hero__lightning.active {
+.hero__water.active {
     opacity: 1;
 }
 
-/* Lightning bolt SVG paths */
-.lightning-bolt {
+/* Refined Directional Water Streams - Navy/Teal dynamic water */
+.water-stream {
+    position: absolute;
+    pointer-events: none;
+    background: linear-gradient(
+        135deg,
+        rgba(184, 230, 255, 0.15) 0%, /* Cool blue-white water */
+        rgba(30, 58, 95, 0.12) 25%,
+        rgba(26, 74, 92, 0.08) 50%,
+        rgba(15, 37, 53, 0.04) 75%,
+        transparent 100%
+    );
+    filter: blur(12px);
+    transform-origin: top right;
+}
+
+.water-stream-1 {
+    width: 140px;
+    height: 320px;
+    top: 50%; /* Lower area */
+    right: 8%;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+    animation: waterStream1 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform: translateX(80px) rotate(-12deg);
+}
+
+.water-stream-2 {
+    width: 120px;
+    height: 280px;
+    top: 65%; /* Lower area */
+    right: 12%;
+    clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+    animation: waterStream2 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+    transform: translateX(90px) rotate(-10deg);
+}
+
+/* Minimal Controlled Splash - Navy/Teal water energy */
+.water-splash {
+    position: absolute;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(184, 230, 255, 0.12) 0%, /* Cool blue-white splash */
+        rgba(30, 58, 95, 0.08) 30%,
+        rgba(26, 74, 92, 0.05) 60%,
+        transparent 100%
+    );
+    filter: blur(20px);
+    border-radius: 50%;
+}
+
+.water-splash-1 {
+    width: 180px;
+    height: 180px;
+    top: 60%; /* Lower area */
+    right: 10%;
+    animation: waterSplash1 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform: scale(0.5);
+}
+
+/* Water Mist Particles - Subtle depth */
+.water-mist {
     position: absolute;
     width: 100%;
     height: 100%;
-    opacity: 0;
+    top: 0;
+    right: 0;
+    pointer-events: none;
 }
 
-.lightning-bolt svg {
-    width: 100%;
-    height: 100%;
+.mist-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(184, 230, 255, 0.15); /* Cool blue-white mist */
+    border-radius: 50%;
+    filter: blur(3px);
+    pointer-events: none;
+}
+
+.mist-1 {
+    top: 55%;
+    right: 15%; /* Lower right area */
+    animation: mistFloat1 4s ease-in-out forwards;
+}
+
+.mist-2 {
+    top: 65%;
+    right: 18%; /* Lower right area */
+    animation: mistFloat2 4.5s ease-in-out 0.5s forwards;
+}
+
+.mist-3 {
+    top: 70%;
+    right: 12%; /* Lower right area */
+    animation: mistFloat3 4.2s ease-in-out 0.8s forwards;
+}
+
+.mist-4 {
+    top: 60%;
+    right: 20%; /* Lower right area */
+    animation: mistFloat4 4.8s ease-in-out 0.3s forwards;
+}
+
+/* Soft Energy Glow - Upper-right lighting, navy/teal water energy */
+.water-energy-glow {
     position: absolute;
     top: 0;
     right: 0;
-}
-
-/* Lightning bolt paths - multiple variations */
-.lightning-bolt-1 {
-    top: 10%;
-    right: 15%;
-    width: 200px;
-    height: 400px;
-    animation: lightningStrike1 0.15s ease-out forwards;
-}
-
-.lightning-bolt-2 {
-    top: 25%;
-    right: 25%;
-    width: 150px;
+    width: 350px;
     height: 350px;
-    animation: lightningStrike2 0.12s ease-out 0.05s forwards;
-}
-
-.lightning-bolt-3 {
-    top: 40%;
-    right: 20%;
-    width: 180px;
-    height: 300px;
-    animation: lightningStrike3 0.18s ease-out 0.1s forwards;
-}
-
-/* Lightning glow effect */
-.lightning-glow {
-    position: absolute;
-    top: 20%;
-    right: 10%;
-    width: 300px;
-    height: 500px;
     background: radial-gradient(
-        ellipse at center,
-        rgba(30, 109, 255, 0.4) 0%,
-        rgba(30, 109, 255, 0.2) 30%,
-        rgba(30, 109, 255, 0.1) 50%,
-        transparent 80%
+        ellipse at 85% 15%,
+        rgba(184, 230, 255, 0.12) 0%, /* Cool blue-white glow */
+        rgba(30, 58, 95, 0.08) 25%,
+        rgba(26, 74, 92, 0.05) 45%,
+        transparent 70%
     );
-    border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0;
-    animation: lightningGlow 0.3s ease-out forwards;
+    filter: blur(35px);
+    pointer-events: none;
+    animation: energyGlow 2.5s ease-in-out forwards;
 }
 
-/* Lightning animations */
-@keyframes lightningStrike1 {
+/* Cinematic Water Animations - High-speed, directional, controlled */
+@keyframes waterStream1 {
     0% {
         opacity: 0;
-        transform: scaleY(0) translateX(-20px);
-    }
-    50% {
-        opacity: 1;
-        transform: scaleY(1) translateX(0);
-    }
-    100% {
-        opacity: 0.6;
-        transform: scaleY(1) translateX(5px);
-    }
-}
-
-@keyframes lightningStrike2 {
-    0% {
-        opacity: 0;
-        transform: scaleY(0) translateX(-15px) rotate(-5deg);
+        transform: translateX(80px) translateY(-30px) rotate(-12deg) scaleX(0.2);
+        filter: blur(10px);
     }
     40% {
-        opacity: 1;
-        transform: scaleY(1) translateX(0) rotate(0deg);
+        opacity: 0.6; /* Reduced from 0.9 - more controlled */
+        transform: translateX(15px) translateY(0) rotate(-12deg) scaleX(1);
+        filter: blur(8px);
     }
     100% {
-        opacity: 0.5;
-        transform: scaleY(1) translateX(3px) rotate(2deg);
+        opacity: 0;
+        transform: translateX(-40px) translateY(30px) rotate(-12deg) scaleX(0.6);
+        filter: blur(14px);
     }
 }
 
-@keyframes lightningStrike3 {
+@keyframes waterStream2 {
     0% {
         opacity: 0;
-        transform: scaleY(0) translateX(-25px) rotate(5deg);
+        transform: translateX(90px) translateY(-25px) rotate(-10deg) scaleX(0.2);
+        filter: blur(10px);
     }
     45% {
-        opacity: 1;
-        transform: scaleY(1) translateX(0) rotate(0deg);
+        opacity: 0.55; /* Reduced from 0.85 - more controlled */
+        transform: translateX(12px) translateY(0) rotate(-10deg) scaleX(1);
+        filter: blur(8px);
     }
     100% {
-        opacity: 0.4;
-        transform: scaleY(1) translateX(-5px) rotate(-3deg);
+        opacity: 0;
+        transform: translateX(-45px) translateY(35px) rotate(-10deg) scaleX(0.5);
+        filter: blur(16px);
     }
 }
 
-@keyframes lightningGlow {
+@keyframes waterSplash1 {
     0% {
         opacity: 0;
-        transform: scale(0.5);
+        transform: scale(0.3);
+        filter: blur(18px);
     }
-    30% {
-        opacity: 1;
-        transform: scale(1.2);
+    35% {
+        opacity: 0.4; /* Reduced - soft glow only */
+        transform: scale(1);
+        filter: blur(15px);
     }
     100% {
         opacity: 0;
-        transform: scale(1.5);
+        transform: scale(1.3);
+        filter: blur(22px);
     }
 }
 
-/* Lightning flash effect on model */
-.modelImg.lightning-flash {
-    filter: brightness(1.3) contrast(1.1) drop-shadow(0 0 30px rgba(30, 109, 255, 0.6));
-    transition: filter 0.2s ease-out;
+/* Mist Particle Animations - Subtle floating */
+@keyframes mistFloat1 {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.3);
+    }
+    30% {
+        opacity: 0.2; /* Reduced - subtle only */
+        transform: translate(-20px, -15px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50px, -40px) scale(0.2);
+    }
 }
 
-/* Hero right glow effect */
-.hero__right.lightning-active::before {
+@keyframes mistFloat2 {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.3);
+    }
+    35% {
+        opacity: 0.18; /* Reduced - subtle only */
+        transform: translate(-25px, -18px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-55px, -45px) scale(0.15);
+    }
+}
+
+@keyframes mistFloat3 {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.3);
+    }
+    32% {
+        opacity: 0.19; /* Reduced - subtle only */
+        transform: translate(-22px, -16px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-52px, -42px) scale(0.18);
+    }
+}
+
+@keyframes mistFloat4 {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.3);
+    }
+    33% {
+        opacity: 0.17; /* Reduced - subtle only */
+        transform: translate(-24px, -17px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-54px, -43px) scale(0.16);
+    }
+}
+
+/* Energy Glow Animation - Upper-right lighting */
+@keyframes energyGlow {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 0.25; /* Reduced - soft glow only */
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.1; /* Very subtle persistent glow */
+        transform: scale(1);
+    }
+}
+
+/* Water effect on model - Enhanced rim light với hiệu ứng thở mượt */
+.modelImg.water-effect {
+    filter: 
+        drop-shadow(0 0 25px rgba(184, 230, 255, 0.7))
+        drop-shadow(0 0 45px rgba(184, 230, 255, 0.5))
+        drop-shadow(0 0 65px rgba(30, 58, 95, 0.4))
+        drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.4))
+        contrast(1.12) 
+        brightness(1.1);
+    transition: filter 0.4s ease-out;
+}
+
+/* Hero right water glow effect - Upper-right lighting with soft edge highlights */
+.hero__right.water-active::before {
     content: '';
     position: absolute;
     top: 0;
@@ -346,25 +552,30 @@ body {
     width: 100%;
     height: 100%;
     background: radial-gradient(
-        circle at 70% 30%,
-        rgba(30, 109, 255, 0.3) 0%,
-        rgba(30, 109, 255, 0.15) 30%,
-        transparent 60%
+        ellipse at 85% 20%,
+        rgba(255, 255, 255, 0.06) 0%,
+        rgba(200, 200, 200, 0.03) 25%,
+        rgba(150, 150, 150, 0.015) 50%,
+        transparent 70%
     );
     pointer-events: none;
-    z-index: 0;
-    animation: heroGlow 0.4s ease-out forwards;
+    z-index: -1;
+    animation: waterGlow 2s ease-out forwards;
+    filter: blur(15px);
 }
 
-@keyframes heroGlow {
+@keyframes waterGlow {
     0% {
         opacity: 0;
+        transform: scale(0.9);
     }
-    50% {
-        opacity: 1;
+    45% {
+        opacity: 0.4;
+        transform: scale(1.05);
     }
     100% {
-        opacity: 0;
+        opacity: 0.15;
+        transform: scale(1);
     }
 }
 
@@ -417,12 +628,12 @@ body {
     bottom: 0;
     background: linear-gradient(
         90deg,
-        rgba(10, 27, 61, 0.98) 0%,
-        rgba(10, 27, 61, 0.95) 35%,
-        rgba(10, 27, 61, 0.85) 50%,
-        rgba(10, 27, 61, 0.65) 60%,
-        rgba(10, 27, 61, 0.35) 70%,
-        rgba(10, 27, 61, 0.0) 100%
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.90) 35%,
+        rgba(26, 26, 26, 0.80) 50%,
+        rgba(45, 45, 45, 0.50) 60%,
+        rgba(74, 74, 74, 0.25) 70%,
+        rgba(0, 0, 0, 0.0) 100%
     );
     z-index: 2;
     pointer-events: none;
@@ -441,33 +652,47 @@ body {
 .shape-1 {
     width: 200px;
     height: 200px;
-    background: var(--blue-500);
+    background: var(--gray);
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     top: -50px;
     right: -30px;
     transform: rotate(45deg);
     filter: blur(30px);
+    opacity: 0.15;
 }
 
 .shape-2 {
     width: 150px;
     height: 150px;
-    background: var(--blue-700);
+    background: var(--light-gray);
     border-radius: 50%;
     top: 15%;
     left: -40px;
     filter: blur(25px);
+    opacity: 0.12;
+}
+
+/* ============================================
+   IMAGE DARK OVERLAY (above photo, below text)
+   ============================================ */
+.hero__image-dark-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.28); /* phủ đen nhẹ */
+    z-index: 1.5;                   /* Trên ảnh (1), dưới overlay chính (2) */
+    pointer-events: none;
 }
 
 .shape-3 {
     width: 100px;
     height: 300px;
-    background: linear-gradient(180deg, var(--blue-500), transparent);
+    background: linear-gradient(180deg, var(--silver), transparent);
     border-radius: 40px;
     bottom: -80px;
     right: 8%;
     transform: rotate(-20deg);
     filter: blur(15px);
+    opacity: 0.1;
 }
 
 /* ============================================
@@ -477,7 +702,7 @@ body {
 .hero__content {
     display: grid;
     grid-template-columns: 1.3fr 0.7fr;
-    gap: clamp(8px, 1.5vw, 10px);
+    gap: 0; /* Bỏ gap để ảnh fill hết */
     position: relative;
     z-index: 3;
     align-items: flex-start;
@@ -496,7 +721,7 @@ body {
     padding: 0.75rem clamp(12px, 3vw, 20px) 0.75rem 0.75rem;
     justify-content: flex-start;
     position: relative;
-    z-index: 3;
+    z-index: 10;                /* Tăng z-index để luôn trên ảnh */
     max-width: 100%;
     min-height: 100%;
     animation: fadeInUp 0.8s ease-out;
@@ -507,14 +732,18 @@ body {
     font-size: 9px;
     font-weight: 600;
     letter-spacing: 1.5px;
-    color: var(--blue-500);
-    background: rgba(30, 109, 255, 0.15);
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 0.35rem 0.7rem;
     border-radius: 12px;
     width: fit-content;
     text-transform: uppercase;
     line-height: 1.2;
     animation: fadeInUp 0.6s ease-out 0.2s both;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .main-title {
@@ -552,7 +781,7 @@ body {
 }
 
 .bullet-list li {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 12px;
@@ -560,6 +789,10 @@ body {
     line-height: 1.2;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     animation: slideInStagger 0.6s ease-out both;
+    /* Không full chiều ngang: chiều rộng phụ thuộc nội dung */
+    align-self: flex-start;
+    width: fit-content;
+    max-width: 100%;
 }
 .bullet-list li{
     position: relative;
@@ -571,10 +804,14 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(10,27,61,0.22);   /* nền tối rất nhẹ */
-    backdrop-filter: blur(2px);
+    /* Glass mờ cho từng bullet item */
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 8px;
     z-index: -1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
 .bullet-list li:nth-child(1) {
@@ -599,12 +836,14 @@ body {
     justify-content: center;
     width: 18px;
     height: 18px;
-    background: var(--blue-500);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     color: var(--white);
     border-radius: 50%;
     font-weight: 700;
     font-size: 10px;
     flex-shrink: 0;
+    backdrop-filter: blur(4px);
 }
 
 /* ============================================
@@ -620,7 +859,7 @@ body {
 .service-badge {
     display: inline-block;
     padding: 0.4rem 0.8rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px;
     font-size: 10px;
@@ -630,12 +869,16 @@ body {
     cursor: default;
     line-height: 1.2;
     animation: fadeInUp 0.6s ease-out 0.7s both;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .service-badge:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
 }
 
 /* ============================================
@@ -648,23 +891,25 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.8px;
     color: var(--white);
-    background: var(--blue-500);
+    background: var(--electric-blue);
     border: none;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 3px 12px rgba(30, 109, 255, 0.4);
+    box-shadow: 0 3px 12px var(--electric-blue-glow), 0 0 20px rgba(30, 109, 255, 0.3);
     width: fit-content;
     margin: 0.25rem 0;
-    animation: fadeInUp 0.6s ease-out 0.8s forwards, pulse 2s ease-in-out 1.5s infinite;
+    animation: fadeInUp 0.6s ease-out 0.8s forwards; /* bỏ nháy/pulse */
     opacity: 1;
+    backdrop-filter: blur(8px);
 }
 
 .cta-button:hover {
     background: #2a7dff;
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(30, 109, 255, 0.6);
-    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 6px 20px rgba(30, 109, 255, 0.6), 0 0 30px rgba(30, 109, 255, 0.5);
+    /* tắt nháy/pulse */
+    animation: none;
     opacity: 1;
 }
 
@@ -680,9 +925,16 @@ body {
     flex-direction: column;
     gap: 0.4rem;
     margin-top: auto;
-    padding-top: 0.75rem;
+    padding: 0.75rem 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     animation: fadeInUp 0.6s ease-out 0.9s both;
+    /* Glass mờ cho contact info block */
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .contact-item {
@@ -694,7 +946,7 @@ body {
 
 .contact-label {
     font-weight: 600;
-    color: var(--gray-100);
+    color: var(--silver);
 }
 
 .contact-value {
@@ -709,9 +961,16 @@ body {
     display: flex;
     gap: 0.75rem;
     margin-top: 0.75rem;
-    padding-top: 0.75rem;
+    padding: 0.75rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     animation: fadeInUp 0.6s ease-out 1s both;
+    /* Glass mờ cho social icons block */
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .social-icon {
@@ -720,16 +979,19 @@ body {
     justify-content: center;
     width: 36px;
     height: 36px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 50%;
     color: var(--white);
     text-decoration: none;
     transition: all 0.3s ease;
     cursor: pointer;
+    backdrop-filter: blur(6px);
 }
 
 .social-icon:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px) scale(1.1);
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
 }
@@ -739,37 +1001,40 @@ body {
     height: 18px;
 }
 
-/* Instagram - Gradient màu hồng/tím/cam */
+/* Instagram - Monochrome */
 .social-icon--instagram {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .social-icon--instagram:hover {
-    background: linear-gradient(45deg, #f5a742 0%, #ea7a4f 25%, #e23d56 50%, #d42d75 75%, #c7259a 100%);
-    box-shadow: 0 4px 15px rgba(225, 48, 108, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
 }
 
-/* TikTok - Màu đen */
+/* TikTok - Monochrome */
 .social-icon--tiktok {
-    background: #000000;
-    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .social-icon--tiktok:hover {
-    background: #1a1a1a;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
 }
 
-/* Facebook - Màu xanh dương */
+/* Facebook - Monochrome */
 .social-icon--facebook {
-    background: #1877F2;
-    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .social-icon--facebook:hover {
-    background: #166FE5;
-    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
 }
 
 /* ============================================
@@ -783,25 +1048,101 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    overflow: visible;
+    overflow: visible;           /* Cho phép hiệu ứng nước hiển thị */
+    z-index: 2;                 /* Above water effect (z-index 1) */
+    /* Loại bỏ mọi padding/margin để ảnh fill hết */
+    padding: 0;
+    margin: 0;
+}
+
+/* Soft light bloom from behind character - water energy */
+.hero__right::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    width: 400px;
+    height: 600px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(184, 230, 255, 0.25) 0%,
+        rgba(30, 58, 95, 0.15) 30%,
+        rgba(26, 74, 92, 0.10) 50%,
+        transparent 80%
+    );
+    filter: blur(40px);
+    pointer-events: none;
     z-index: 1;
+    animation: bloomPulse 4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes bloomPulse {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
 }
 
 .modelImg {
     position: absolute;
     bottom: 0;
     right: 0;
-    height: clamp(520px, 90svh, 780px);
+    height: clamp(600px, 100svh, 900px);
     width: auto;
-    max-width: 55%;
+    max-width: 65%;
     object-fit: contain;
     object-position: bottom right;
     display: block;
-    filter: drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.3)) contrast(1.05) brightness(1.02);
+    /* Bo góc ảnh mạnh hơn - bo tròn nhiều hơn */
+    border-radius: 45px;
+    overflow: hidden;
+    /* Đảm bảo không có khoảng trống - clip path để bo góc chắc chắn */
+    clip-path: inset(0 round 45px);
+    background: transparent;
+    /* Đảm bảo fill hết không gian - không có gap */
+    margin: 0;
+    padding: 0;
+    /* Rim light effect - cool blue-white glow với hiệu ứng thở mượt */
+    filter: 
+        drop-shadow(0 0 15px rgba(184, 230, 255, 0.5))
+        drop-shadow(0 0 30px rgba(184, 230, 255, 0.3))
+        drop-shadow(0 0 50px rgba(30, 58, 95, 0.2))
+        drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.4))
+        contrast(1.08) 
+        brightness(1.05);
     transform: translate(8px, 10px);
-    z-index: 1;
-    animation: fadeInRight 1s ease-out 0.4s both, float 3s ease-in-out 1.5s infinite;
-    transition: filter 0.1s ease-out, box-shadow 0.1s ease-out;
+    z-index: 2; /* Above water and bloom */
+    animation: fadeInRight 1s ease-out 0.4s both, float 3s ease-in-out 1.5s infinite, rimLightBreathing 3s ease-in-out infinite;
+    transition: filter 0.3s ease-out;
+    /* Ensure clean cutout appearance */
+    mix-blend-mode: normal;
+}
+
+/* Hiệu ứng thở mượt cho rim light - không giật */
+@keyframes rimLightBreathing {
+    0%, 100% {
+        filter: 
+            drop-shadow(0 0 15px rgba(184, 230, 255, 0.5))
+            drop-shadow(0 0 30px rgba(184, 230, 255, 0.3))
+            drop-shadow(0 0 50px rgba(30, 58, 95, 0.2))
+            drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.4))
+            contrast(1.08) 
+            brightness(1.05);
+    }
+    50% {
+        filter: 
+            drop-shadow(0 0 20px rgba(184, 230, 255, 0.6))
+            drop-shadow(0 0 40px rgba(184, 230, 255, 0.4))
+            drop-shadow(0 0 60px rgba(30, 58, 95, 0.3))
+            drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.4))
+            contrast(1.1) 
+            brightness(1.08);
+    }
 }
 
 /* Lightning flash effect on model - Glow mềm mại loe tròn như giông bão */
@@ -809,9 +1150,8 @@ body {
     filter: drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.3)) 
             contrast(1.12) 
             brightness(1.2);
-    animation: fadeInRight 1s ease-out 0.4s both, 
-               float 3s ease-in-out 1.5s infinite,
-               lightningFlashGlow 0.2s ease-out;
+    /* tắt nháy/flash */
+    animation: fadeInRight 1s ease-out 0.4s both;
 }
 
 /* Tạo hiệu ứng glow loe tròn bằng pseudo-element - MỊN HƠN & RỘNG HƠN */
@@ -899,14 +1239,20 @@ body {
    RESPONSIVE DESIGN
    ============================================ */
 
-   @media (max-width: 639px) {
+   /* ============================================
+      MOBILE LAYOUT FIX - max-width: 768px
+      ============================================ */
+   @media (max-width: 768px) {
+    /* ============================================
+       CONTACT INFO - Mobile styling
+       ============================================ */
     .contact-info{
         position: relative;
         padding: 10px 12px;
         border-radius: 12px;
     
         /* glass nền */
-        background: rgba(10, 27, 61, 0.35);
+        background: rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
     
@@ -936,65 +1282,134 @@ body {
         border-top: 1px solid rgba(255,255,255,0.08);
       }
     
-    /* overlay bảo vệ chữ (giữ như bạn nhưng tối ưu mượt hơn) */
+    /* ============================================
+       OVERLAY - Mobile gradient
+       ============================================ */
     .hero__overlay{
       background: linear-gradient(
         90deg,
-        rgba(10, 27, 61, 0.99) 0%,
-        rgba(10, 27, 61, 0.96) 38%,
-        rgba(10, 27, 61, 0.78) 58%,
-        rgba(10, 27, 61, 0.42) 74%,
-        rgba(10, 27, 61, 0.12) 88%,
-        rgba(10, 27, 61, 0.00) 100%
+        rgba(0, 0, 0, 0.98) 0%,
+        rgba(0, 0, 0, 0.95) 38%,
+        rgba(26, 26, 26, 0.85) 58%,
+        rgba(45, 45, 45, 0.50) 74%,
+        rgba(74, 74, 74, 0.20) 88%,
+        rgba(0, 0, 0, 0.00) 100%
       );
     }
   
-    /* GIỮ 2 CỘT nhưng KHÔNG bóp cả layout */
+    /* ============================================
+       HERO CONTENT - Mobile: Flex column layout
+       ============================================ */
     .hero__content{
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 10px;
+      display: flex !important;           /* Override grid */
+      flex-direction: column !important;  /* Text trên, ảnh dưới */
+      gap: 0;
       width: 100%;
-      max-width: 100%;          /* <-- bỏ max-width 65% */
+      max-width: 100%;
+      height: auto;                      /* Auto height để chứa cả text và ảnh */
+      min-height: auto;
     }
   
-    /* safe-zone cho chữ: chỉ giới hạn cột trái */
+    /* ============================================
+       LEFT COLUMN - Text content (ở trên)
+       ============================================ */
     .hero__left{
-      max-width: 68vw;          /* chữ được phép đè nhẹ lên nhân vật */
+      position: relative;
+      width: 100% !important;
+      max-width: 100% !important;
       padding-right: 12px;
-      z-index: 4;               /* chữ luôn trên */
+      z-index: 10;
+      order: 1;                          /* Text ở trên */
+      flex-shrink: 0;                     /* Không bị co lại */
     }
+    
     .main-title, .subtitle, .bullet-list li{
         text-shadow: 0 2px 10px rgba(0,0,0,0.65);
       }
   
-    /* KHÔNG dùng static, để relative để ảnh absolute bám đúng */
+    /* ============================================
+       RIGHT COLUMN - Image container (ở dưới)
+       ============================================ */
     .hero__right{
-      position: relative;
+      position: relative !important;      /* Override absolute nếu có */
+      width: 100% !important;
+      height: auto !important;            /* Auto height để chứa ảnh */
+      min-height: 400px;                  /* Min height để đảm bảo ảnh có không gian */
       z-index: 1;
+      overflow: visible !important;       /* QUAN TRỌNG: Không cắt ảnh */
+      padding: 0;
+      margin: 0;
+      max-width: 100%;
+      order: 2;                          /* Ảnh ở dưới */
+      display: flex !important;
+      align-items: center;               /* Căn giữa ảnh */
+      justify-content: center;
+      flex-shrink: 0;
     }
   
-    /* Nhân vật: to, đứng sàn, lệch phải vừa đủ, không “kì” */
+    /* ============================================
+       MODEL IMAGE - Mobile: Hiển thị rõ, không bị cắt
+       ============================================ */
     .modelImg{
-      height: clamp(640px, 92svh, 900px);
-      width: auto;
-      max-width: none;
-      object-fit: contain;
-      object-position: bottom right;
-  
-      /* dịch nhẹ thôi để vừa đẹp + cho chữ đè chút */
-      transform: translate(18px, 14px) scale(1.05);
-      transform-origin: bottom right;
-  
+      /* QUAN TRỌNG: Reset tất cả absolute positioning */
+      position: relative !important;
+      bottom: auto !important;
+      right: auto !important;
+      left: auto !important;
+      top: auto !important;
+      
+      /* Display và sizing */
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      
+      /* Width và height - đảm bảo không méo */
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+      min-height: 400px;                 /* Min height để ảnh không quá nhỏ */
+      max-height: 80vh;                  /* Max height để không quá lớn */
+      
+      /* Object fit - giữ tỷ lệ, không cắt đầu/chân */
+      object-fit: contain !important;    /* contain thay vì cover để không cắt */
+      object-position: center bottom;    /* Căn bottom nhưng center horizontal */
+      
+      /* Bo góc */
+      border-radius: 45px;
+      overflow: hidden;
+      clip-path: inset(0 round 45px);
+      
+      /* Transform - reset tất cả */
+      transform: none !important;
+      transform-origin: center;
+      
+      /* Z-index và spacing */
       z-index: 1;
+      margin: 1.5rem auto 0;             /* Margin top để cách text, auto để center */
+      padding: 0;
+      
+      /* Filter và animation - giữ lại nhưng nhẹ hơn */
+      filter: 
+        drop-shadow(0 0 10px rgba(184, 230, 255, 0.3))
+        drop-shadow(0 0 20px rgba(30, 58, 95, 0.2))
+        contrast(1.05) 
+        brightness(1.02);
+      
+      /* Bỏ animation phức tạp trên mobile */
+      animation: fadeInUp 0.8s ease-out;
     }
   
-    /* tăng độ rõ chữ (giữ) */
+    /* ============================================
+       TEXT SHADOW - Mobile: Tăng độ rõ
+       ============================================ */
     .subtitle,
     .bullet-list li{
       text-shadow: 2px 2px 6px rgba(0,0,0,0.75), 0 0 10px rgba(0,0,0,0.45);
     }
   
-    /* CTA nổi trên body */
+    /* ============================================
+       CTA BUTTON - Mobile: Đảm bảo không bị che
+       ============================================ */
     .cta-button{
       position: relative;
       z-index: 5;
@@ -1002,6 +1417,7 @@ body {
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(255,255,255,0.18);
+      margin-top: 1rem;                  /* Margin để cách text */
     }
   
     /* badges “premium” hơn */
@@ -1021,7 +1437,7 @@ body {
     
     .hero__content {
         grid-template-columns: 1.2fr 0.8fr;
-        gap: 1rem;
+        gap: 0; /* Bỏ gap để ảnh fill hết */
     }
     
     .hero__left {
@@ -1066,18 +1482,51 @@ body {
         font-size: 12px;
     }
     
+    /* Tablet: Reset mobile styles và đảm bảo ảnh hiển thị */
+    .hero__content {
+        display: grid !important;        /* Override flex từ mobile */
+    }
+    
+    .hero__right {
+        position: relative !important;
+        height: 100% !important;
+        overflow: visible !important;
+        display: flex !important;
+        align-items: flex-end !important;
+        justify-content: flex-end !important;
+    }
+    
     .modelImg {
-        height: clamp(600px, 92svh, 880px);
-        transform: translate(12px, 15px);
+        position: absolute !important;    /* Override mobile relative */
+        bottom: 0 !important;
+        right: 0 !important;
+        left: auto !important;
+        top: auto !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: clamp(700px, 100svh, 950px) !important;
+        width: auto !important;
+        max-width: 70% !important;
+        object-fit: contain !important;
+        object-position: bottom right !important;
+        transform: translate(12px, 15px) !important;
+        transform-origin: bottom right !important;
+        margin: 0 !important;
+        /* Bo góc mạnh và đảm bảo không hở */
+        border-radius: 45px;
+        overflow: hidden;
+        clip-path: inset(0 round 45px);
+        z-index: 2 !important;
     }
     
     .hero__overlay {
         background: linear-gradient(
             90deg,
-            rgba(10, 27, 61, 0.95) 0%,
-            rgba(10, 27, 61, 0.80) 42%,
-            rgba(10, 27, 61, 0.40) 68%,
-            rgba(10, 27, 61, 0.0) 100%
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(0, 0, 0, 0.85) 42%,
+            rgba(26, 26, 26, 0.50) 68%,
+            rgba(0, 0, 0, 0.0) 100%
         );
     }
 }
@@ -1145,19 +1594,36 @@ body {
     }
     
     .modelImg {
-        height: clamp(850px, 85vh, 1100px);
-        max-width: 68%;
-        transform: translate(20px, 18px) scale(1.22);
-        transform-origin: bottom right;
+        position: absolute !important;    /* Override mobile */
+        bottom: 0 !important;
+        right: 0 !important;
+        left: auto !important;
+        top: auto !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: clamp(950px, 100vh, 1200px) !important;
+        width: auto !important;
+        max-width: 75% !important;
+        object-fit: contain !important;
+        object-position: bottom right !important;
+        transform: translate(20px, 18px) scale(1.25) !important;
+        transform-origin: bottom right !important;
+        margin: 0 !important;
+        /* Bo góc mạnh và đảm bảo không hở */
+        border-radius: 45px;
+        overflow: hidden;
+        clip-path: inset(0 round 45px);
+        z-index: 2 !important;
     }
     
     .hero__overlay {
         background: linear-gradient(
             90deg,
-            rgba(10, 27, 61, 0.96) 0%,
-            rgba(10, 27, 61, 0.82) 45%,
-            rgba(10, 27, 61, 0.35) 70%,
-            rgba(10, 27, 61, 0.0) 100%
+            rgba(0, 0, 0, 0.96) 0%,
+            rgba(0, 0, 0, 0.88) 45%,
+            rgba(26, 26, 26, 0.45) 70%,
+            rgba(0, 0, 0, 0.0) 100%
         );
     }
     
@@ -1180,9 +1646,163 @@ body {
     }
     
     .modelImg {
-        height: clamp(900px, 88vh, 1150px);
-        max-width: 72%;
-        transform: translate(20px, 18px) scale(1.25);
-        transform-origin: bottom right;
+        position: absolute !important;    /* Override mobile */
+        bottom: 0 !important;
+        right: 0 !important;
+        left: auto !important;
+        top: auto !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: clamp(1000px, 100vh, 1300px) !important;
+        width: auto !important;
+        max-width: 80% !important;
+        object-fit: contain !important;
+        object-position: bottom right !important;
+        transform: translate(20px, 18px) scale(1.3) !important;
+        transform-origin: bottom right !important;
+        margin: 0 !important;
+        /* Bo góc mạnh và đảm bảo không hở */
+        border-radius: 45px;
+        overflow: hidden;
+        clip-path: inset(0 round 45px);
+        z-index: 2 !important;
+    }
+}
+
+/* ============================================
+   MOBILE FULLSCREEN HERO (max-width: 768px)
+   - 1 screen, no scroll
+   - Model image = full background
+   - Text overlay on top (poster style)
+   ============================================ */
+@media (max-width: 768px) {
+    html,
+    body {
+        height: 100svh;                /* Safari friendly full height */
+        min-height: 100svh;
+        overflow: hidden;              /* Không cho scroll */
+    }
+
+    .hero {
+        position: relative;
+        width: 100%;
+        height: 100svh;                 /* Khoá hero đúng 1 màn */
+        min-height: 100svh;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .hero__content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between; /* Dàn đều text + contact trong 100vh */
+        align-items: flex-start;
+        padding: calc(1.2rem + env(safe-area-inset-top, 0)) 1.4rem
+                 calc(1.4rem + env(safe-area-inset-bottom, 0));
+        gap: 0.4rem;
+        z-index: 2;                    /* Above background image */
+    }
+
+    .hero__right {
+        position: absolute !important;
+        inset: 0;                      /* Fill hero */
+        z-index: 1;                    /* Background layer */
+        margin: 0;
+        padding: 0;
+        display: block;
+        overflow: hidden;
+        pointer-events: none;          /* Keep text interactions clean */
+    }
+
+    .modelImg {
+        position: absolute !important;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        object-fit: cover !important;
+        object-position: center center !important; /* Center ảnh trên mobile */
+        border-radius: 28px;            /* Bo góc nhẹ cho mobile */
+        clip-path: inset(0 round 28px);
+        transform: none !important;
+        z-index: 1;
+        filter: brightness(1.02) contrast(1.05);
+        animation: none !important;     /* tắt mọi nháy/giật ảnh */
+    }
+
+    .hero__overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;                    /* Above image, below text */
+        background: linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.96) 0%,
+            rgba(0, 0, 0, 0.92) 35%,
+            rgba(0, 0, 0, 0.6) 55%,
+            rgba(0, 0, 0, 0.15) 80%,
+            rgba(0, 0, 0, 0.00) 100%
+        );
+        pointer-events: none;
+    }
+
+    .hero__left {
+        position: relative;
+        z-index: 3;                     /* Top-most */
+        max-width: 88vw;
+        width: 100%;
+        padding-right: 0;
+        padding-top: 0;
+        gap: 0.45rem;
+    }
+
+    /* Ensure contact & CTA still above background */
+    /* CTA: luôn sáng, không nhấp nháy trên mobile */
+    .cta-button,
+    .cta-button:hover {
+        position: relative;
+        z-index: 4;
+        animation: none !important; /* tắt mọi nháy */
+        box-shadow: 0 3px 12px var(--electric-blue-glow),
+                    0 0 20px rgba(30, 109, 255, 0.3);
+    }
+
+    /* Contact + Social: hẹp chiều ngang, gọn hơn */
+    .contact-info,
+    .social-icons {
+        position: relative;
+        z-index: 4;
+        width: min(360px, 100%);
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 0;
+        margin-bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    .social-icons {
+        justify-content: flex-start;
+        gap: 0.6rem;
+    }
+
+    /* Tắt tất cả animation "giật" trên mobile */
+    .hero__content *,
+    .modelImg,
+    .cta-button,
+    .contact-info,
+    .social-icons,
+    .service-badge,
+    .bullet-list li,
+    .tag,
+    .main-title,
+    .subtitle {
+        animation: none !important;
     }
 }

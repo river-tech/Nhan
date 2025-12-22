@@ -20,11 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
         shape.style.animation = `floatShape ${duration}s ease-in-out ${delay}s infinite`;
     });
     
-    // Mouse move parallax effect nhẹ cho nhân vật
+    // Mouse move parallax effect nhẹ cho nhân vật (desktop only)
     const modelImg = document.querySelector('.modelImg');
     const hero = document.querySelector('.hero');
+    const isMobile = window.innerWidth <= 768;
     
-    if (modelImg && hero) {
+    if (modelImg && hero && !isMobile) {
         hero.addEventListener('mousemove', function(e) {
             const rect = hero.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width;
@@ -151,41 +152,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ============================================
-    // CSS LIGHTNING EFFECT (No Three.js)
+    // WATER EFFECT
     // ============================================
-    function triggerLightning() {
-        const lightningContainer = document.getElementById('css-lightning');
+    function triggerWaterEffect() {
+        const waterContainer = document.getElementById('water-effect');
         const modelImg = document.querySelector('.modelImg');
         const heroRight = document.querySelector('.hero__right');
         
-        if (!lightningContainer || !modelImg || !heroRight) return;
+        if (!waterContainer || !modelImg || !heroRight) return;
         
-        // Activate lightning
-        lightningContainer.classList.add('active');
-        modelImg.classList.add('lightning-flash');
-        heroRight.classList.add('lightning-active');
+        // Activate water effect
+        waterContainer.classList.add('active');
+        modelImg.classList.add('water-effect');
+        heroRight.classList.add('water-active');
         
-        // Remove classes after animation
+        // Remove classes after animation (longest animation is ~3.8s for mist)
         setTimeout(() => {
-            lightningContainer.classList.remove('active');
-            modelImg.classList.remove('lightning-flash');
-            heroRight.classList.remove('lightning-active');
-        }, 400);
+            waterContainer.classList.remove('active');
+            modelImg.classList.remove('water-effect');
+            heroRight.classList.remove('water-active');
+        }, 4000); // Match longest animation duration + buffer
     }
     
-    // Auto-trigger lightning every 2.5-4 seconds
-    function startLightningLoop() {
-        const interval = 2500 + Math.random() * 1500; // 2.5-4 seconds
+    // Auto-trigger water effect every 3-5 seconds (desktop only to tránh giật ảnh trên mobile)
+    function startWaterLoop() {
+        const interval = 3000 + Math.random() * 2000; // 3-5 seconds
         
         setTimeout(() => {
-            triggerLightning();
-            startLightningLoop(); // Loop
+            triggerWaterEffect();
+            startWaterLoop(); // Loop
         }, interval);
     }
     
-    // Start lightning loop after page load
-    setTimeout(() => {
-        startLightningLoop();
-    }, 2000); // Start after 2 seconds
+    // Start water loop after page load (skip mobile để tránh giật ảnh)
+    if (!isMobile) {
+        setTimeout(() => {
+            startWaterLoop();
+        }, 2000); // Start after 2 seconds
+    }
 });
 
