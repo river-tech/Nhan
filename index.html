@@ -52,12 +52,131 @@
                     <div class="service-badge">Online Coaching</div>
                 </div>
                 
-                <button class="cta-button">ĐĂNG KÝ NGAY</button>
+                <!-- <a href="tel:+84903536212" class="cta-button" id="main-cta">ĐĂNG KÝ NGAY</a> -->
+                
+                <!-- Mobile Pricing Button (only visible on mobile) -->
+                <button class="pricing-mobile-button" id="pricing-mobile-btn">XEM BẢNG GIÁ / liên hệ</button>
+                
+                <!-- Pricing Section (Desktop only) -->
+                <div class="pricing" id="pricing-section">
+                    <!-- Tabs -->
+                    <div class="pricing__tabs">
+                        <button class="pricing__tab" data-tab="online" role="tab" aria-selected="false">Online Coaching</button>
+                        <button class="pricing__tab pricing__tab--active" data-tab="offline" role="tab" aria-selected="true">Offline Đà Nẵng</button>
+                    </div>
+                    
+                    <!-- Online Tab Content -->
+                    <div class="pricing__panel" id="pricing-online" data-panel="online">
+                        <div class="pricing__grid pricing__grid--online">
+                            <!-- Online 1 Month -->
+                            <div class="pricing__card">
+                                <div class="pricing__card-header">
+                                    <h3 class="pricing__card-title">ONLINE 1 THÁNG</h3>
+                                    <div class="pricing__card-price">1.500.000đ</div>
+                                </div>
+                                <ul class="pricing__benefits">
+                                    <li>Kế hoạch tập cá nhân hóa</li>
+                                    <li>Theo dõi tiến độ tuần</li>
+                                    <li>Chỉnh form qua video</li>
+                                    <li>Tư vấn dinh dưỡng</li>
+                                    <li>Check-in hàng ngày</li>
+                                </ul>
+                                <button class="pricing__card-button" data-select="online-1">Chọn gói</button>
+                            </div>
+                            
+                            <!-- Online 3 Months -->
+                            <div class="pricing__card pricing__card--featured">
+                                <div class="badge badge--best-value">BEST VALUE</div>
+                                <div class="pricing__card-header">
+                                    <h3 class="pricing__card-title">ONLINE 3 THÁNG</h3>
+                                    <div class="pricing__card-price">4.000.000đ</div>
+                                    <div class="pricing__card-savings">Tiết kiệm 500.000đ</div>
+                                </div>
+                                <ul class="pricing__benefits">
+                                    <li>Kế hoạch tập cá nhân hóa</li>
+                                    <li>Theo dõi tiến độ tuần</li>
+                                    <li>Chỉnh form qua video</li>
+                                    <li>Tư vấn dinh dưỡng</li>
+                                    <li>Check-in hàng ngày</li>
+                                    <li>Ưu tiên hỗ trợ 24/7</li>
+                                </ul>
+                                <button class="pricing__card-button" data-select="online-3">Chọn gói</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Offline Tab Content -->
+                    <div class="pricing__panel pricing__panel--active" id="pricing-offline" data-panel="offline">
+                        <div class="pricing__offline-header">
+                            <h4 class="pricing__offline-title">Offline PT 1:1 – Đà Nẵng (Bao phòng)</h4>
+                            <p class="pricing__offline-subtitle">Từ 3.000.000đ/tháng – số lượng giới hạn</p>
+                        </div>
+                        <div class="pricing__grid pricing__grid--offline">
+                            <!-- Offline Start -->
+                            <div class="pricing__card">
+                                <div class="badge badge--start">Start</div>
+                                <div class="pricing__card-header">
+                                    <h3 class="pricing__card-title">OFFLINE START</h3>
+                                    <div class="pricing__card-price">3.000.000đ</div>
+                                    <div class="pricing__card-period">14 buổi</div>
+                                </div>
+                                <ul class="pricing__benefits">
+                                    <li>PT 1:1 cá nhân</li>
+                                    <li>Bao phòng tập</li>
+                                    <li>Kế hoạch dinh dưỡng</li>
+                                </ul>
+                                <button class="pricing__card-button" data-select="offline-start">liên hệ</button>
+                            </div>
+                            
+                            <!-- Offline Popular -->
+                            <div class="pricing__card pricing__card--popular">
+                                <div class="badge badge--popular">MOST POPULAR</div>
+                                <div class="pricing__card-header">
+                                    <h3 class="pricing__card-title">OFFLINE POPULAR</h3>
+                                    <div class="pricing__card-price">3.200.000đ</div>
+                                    <div class="pricing__card-period">16 buổi • 4 buổi/tuần</div>
+                                </div>
+                                <ul class="pricing__benefits">
+                                    <li>PT 1:1 cá nhân</li>
+                                    <li>Bao phòng tập</li>
+                                    <li>Kế hoạch dinh dưỡng</li>
+                                    <li>Lịch tập linh hoạt</li>
+                                </ul>
+                                <button class="pricing__card-button" data-select="offline-popular">liên hệ</button>
+                            </div>
+                            
+                            <!-- Offline Elite -->
+                            <div class="pricing__card pricing__card--elite">
+                                <div class="badge badge--elite">ELITE</div>
+                                <div class="pricing__card-header">
+                                    <h3 class="pricing__card-title">OFFLINE ELITE</h3>
+                                    <div class="pricing__card-price">5.000.000đ</div>
+                                    <div class="pricing__card-period">5 buổi/tuần</div>
+                                </div>
+                                <ul class="pricing__benefits">
+                                    <li>PT 1:1 cá nhân</li>
+                                    <li>Bao phòng tập</li>
+                                    <li>Kế hoạch dinh dưỡng</li>
+                                    <li>Thay đổi nhanh chóng</li>
+                                    <li>Ưu tiên lịch đẹp</li>
+                                </ul>
+                                <button class="pricing__card-button" data-select="offline-elite">liên hệ</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pricing Note -->
+                    <p class="pricing__note">Giá có thể thay đổi theo mục tiêu & lịch trống. Inbox để giữ lịch nhanh.</p>
+                </div>
                 
                 <div class="contact-info">
                     <div class="contact-item">
                         <span class="contact-label">SĐT:</span>
-                        <span class="contact-value">+84 903536212</span>
+                        <a href="tel:+84903536212" class="contact-value contact-link">+84 903536212</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Zalo:</span>
+                        <a href="https://zalo.me/0903536212" class="contact-value contact-link" target="_blank">0903536212</a>
                     </div>
                     <div class="contact-item">
                         <span class="contact-label">Khu vực:</span>
@@ -107,6 +226,129 @@
                 <div class="hero__image-dark-overlay"></div>
                 <img src="src/assets/model.png" alt="RIVER NGUYEN Model" class="modelImg">
             </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Sheet Modal (Mobile only) -->
+    <div class="bottom-sheet-overlay" id="bottom-sheet-overlay"></div>
+    <div class="bottom-sheet" id="bottom-sheet">
+        <div class="bottom-sheet__header">
+            <h3 class="bottom-sheet__title">Bảng Giá</h3>
+            <button class="bottom-sheet__close" id="bottom-sheet-close" aria-label="Đóng">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="bottom-sheet__content">
+            <!-- Tabs -->
+            <div class="pricing__tabs">
+                <button class="pricing__tab" data-tab="online" role="tab" aria-selected="false">Online Coaching</button>
+                <button class="pricing__tab pricing__tab--active" data-tab="offline" role="tab" aria-selected="true">Offline Đà Nẵng</button>
+            </div>
+            
+            <!-- Online Tab Content -->
+            <div class="pricing__panel" id="pricing-online-mobile" data-panel="online">
+                <div class="pricing__grid pricing__grid--online">
+                    <!-- Online 1 Month -->
+                    <div class="pricing__card">
+                        <div class="pricing__card-header">
+                            <h3 class="pricing__card-title">ONLINE 1 THÁNG</h3>
+                            <div class="pricing__card-price">1.500.000đ</div>
+                        </div>
+                        <ul class="pricing__benefits">
+                            <li>Kế hoạch tập cá nhân hóa</li>
+                            <li>Theo dõi tiến độ tuần</li>
+                            <li>Chỉnh form qua video</li>
+                            <li>Tư vấn dinh dưỡng</li>
+                            <li>Check-in hàng ngày</li>
+                        </ul>
+                        <button class="pricing__card-button" data-select="online-1">Chọn gói</button>
+                    </div>
+                    
+                    <!-- Online 3 Months -->
+                    <div class="pricing__card pricing__card--featured">
+                        <div class="badge badge--best-value">BEST VALUE</div>
+                        <div class="pricing__card-header">
+                            <h3 class="pricing__card-title">ONLINE 3 THÁNG</h3>
+                            <div class="pricing__card-price">4.000.000đ</div>
+                            <div class="pricing__card-savings">Tiết kiệm 500.000đ</div>
+                        </div>
+                        <ul class="pricing__benefits">
+                            <li>Kế hoạch tập cá nhân hóa</li>
+                            <li>Theo dõi tiến độ tuần</li>
+                            <li>Chỉnh form qua video</li>
+                            <li>Tư vấn dinh dưỡng</li>
+                            <li>Check-in hàng ngày</li>
+                            <li>Ưu tiên hỗ trợ 24/7</li>
+                        </ul>
+                        <button class="pricing__card-button" data-select="online-3">Chọn gói</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Offline Tab Content -->
+            <div class="pricing__panel pricing__panel--active" id="pricing-offline-mobile" data-panel="offline">
+                <div class="pricing__offline-header">
+                    <h4 class="pricing__offline-title">Offline PT 1:1 – Đà Nẵng (Bao phòng)</h4>
+                    <p class="pricing__offline-subtitle">Từ 3.000.000đ/tháng – số lượng giới hạn</p>
+                </div>
+                <div class="pricing__grid pricing__grid--offline">
+                    <!-- Offline Start -->
+                    <div class="pricing__card">
+                        <div class="badge badge--start">Start</div>
+                        <div class="pricing__card-header">
+                            <h3 class="pricing__card-title">OFFLINE START</h3>
+                            <div class="pricing__card-price">3.000.000đ</div>
+                            <div class="pricing__card-period">14 buổi</div>
+                        </div>
+                        <ul class="pricing__benefits">
+                            <li>PT 1:1 cá nhân</li>
+                            <li>Bao phòng tập</li>
+                            <li>Kế hoạch dinh dưỡng</li>
+                        </ul>
+                        <button class="pricing__card-button" data-select="offline-start">Giữ lịch</button>
+                    </div>
+                    
+                    <!-- Offline Popular -->
+                    <div class="pricing__card pricing__card--popular">
+                        <div class="badge badge--popular">MOST POPULAR</div>
+                        <div class="pricing__card-header">
+                            <h3 class="pricing__card-title">OFFLINE POPULAR</h3>
+                            <div class="pricing__card-price">3.200.000đ</div>
+                            <div class="pricing__card-period">16 buổi • 4 buổi/tuần</div>
+                        </div>
+                        <ul class="pricing__benefits">
+                            <li>PT 1:1 cá nhân</li>
+                            <li>Bao phòng tập</li>
+                            <li>Kế hoạch dinh dưỡng</li>
+                            <li>Lịch tập linh hoạt</li>
+                        </ul>
+                        <button class="pricing__card-button" data-select="offline-popular">liên hệ</button>
+                    </div>
+                    
+                    <!-- Offline Elite -->
+                    <div class="pricing__card pricing__card--elite">
+                        <div class="badge badge--elite">ELITE</div>
+                        <div class="pricing__card-header">
+                            <h3 class="pricing__card-title">OFFLINE ELITE</h3>
+                            <div class="pricing__card-price">5.000.000đ</div>
+                            <div class="pricing__card-period">5 buổi/tuần</div>
+                        </div>
+                        <ul class="pricing__benefits">
+                            <li>PT 1:1 cá nhân</li>
+                            <li>Bao phòng tập</li>
+                            <li>Kế hoạch dinh dưỡng</li>
+                            <li>Thay đổi nhanh chóng</li>
+                            <li>Ưu tiên lịch đẹp</li>
+                        </ul>
+                        <button class="pricing__card-button" data-select="offline-elite">liên hệ</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pricing Note -->
+            <p class="pricing__note">Giá có thể thay đổi theo mục tiêu & lịch trống. Inbox để liên hệ nhanh.</p>
         </div>
     </div>
     

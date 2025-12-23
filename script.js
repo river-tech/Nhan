@@ -3,192 +3,172 @@
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // CTA button click handler
-    const ctaButton = document.querySelector('.cta-button');
+    // ============================================
+    // BOTTOM SHEET MODAL (Mobile)
+    // ============================================
+    const bottomSheetOverlay = document.getElementById('bottom-sheet-overlay');
+    const bottomSheet = document.getElementById('bottom-sheet');
+    const pricingMobileBtn = document.getElementById('pricing-mobile-btn');
+    const bottomSheetClose = document.getElementById('bottom-sheet-close');
     
-    if (ctaButton) {
-        ctaButton.addEventListener('click', function() {
-            console.log('CTA button clicked');
+    function openBottomSheet() {
+        if (bottomSheetOverlay && bottomSheet) {
+            bottomSheetOverlay.classList.add('open');
+            bottomSheet.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeBottomSheet() {
+        if (bottomSheetOverlay && bottomSheet) {
+            bottomSheetOverlay.classList.remove('open');
+            bottomSheet.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    // Open bottom sheet
+    if (pricingMobileBtn) {
+        pricingMobileBtn.addEventListener('click', openBottomSheet);
+    }
+    
+    // Close bottom sheet
+    if (bottomSheetClose) {
+        bottomSheetClose.addEventListener('click', closeBottomSheet);
+    }
+    
+    // Close on overlay click
+    if (bottomSheetOverlay) {
+        bottomSheetOverlay.addEventListener('click', function(e) {
+            if (e.target === bottomSheetOverlay) {
+                closeBottomSheet();
+            }
         });
     }
     
-    // Floating animation cho shapes
-    const shapes = document.querySelectorAll('.shape');
-    shapes.forEach((shape, index) => {
-        const delay = index * 0.5;
-        const duration = 4 + index;
-        shape.style.animation = `floatShape ${duration}s ease-in-out ${delay}s infinite`;
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && bottomSheet && bottomSheet.classList.contains('open')) {
+            closeBottomSheet();
+        }
     });
     
-    // Mouse move parallax effect nhẹ cho nhân vật (desktop only)
-    const modelImg = document.querySelector('.modelImg');
-    const hero = document.querySelector('.hero');
-    const isMobile = window.innerWidth <= 768;
+    // ============================================
+    // PRICING TAB SWITCHING (Desktop + Mobile Sheet)
+    // ============================================
+    const pricingTabs = document.querySelectorAll('.pricing__tab');
+    const pricingPanels = document.querySelectorAll('.pricing__panel');
+    const mainCta = document.getElementById('main-cta');
     
-    if (modelImg && hero && !isMobile) {
-        hero.addEventListener('mousemove', function(e) {
-            const rect = hero.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width;
-            const y = (e.clientY - rect.top) / rect.height;
-            
-            const moveX = (x - 0.5) * 10;
-            const moveY = (y - 0.5) * 10;
-            
-            // Lấy transform hiện tại từ animation float
-            const currentTransform = modelImg.style.transform || '';
-            const baseTransform = currentTransform.includes('translate') 
-                ? currentTransform.split('translateY')[0] 
-                : 'translate(8px, 10px)';
-            
-            modelImg.style.transform = `${baseTransform} translate(${moveX}px, ${moveY}px)`;
+    // Default: Offline tab is active
+    let currentTab = 'offline';
+    
+    // Tab switching function (works for both desktop and mobile sheet)
+    function switchTab(targetTab) {
+        // Update all tabs (desktop + mobile bottom sheet)
+        pricingTabs.forEach(tab => {
+            const isActive = tab.getAttribute('data-tab') === targetTab;
+            tab.classList.toggle('pricing__tab--active', isActive);
+            tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        // Update all panels
+        pricingPanels.forEach(panel => {
+            const isActive = panel.getAttribute('data-panel') === targetTab;
+            panel.classList.toggle('pricing__panel--active', isActive);
         });
         
-        hero.addEventListener('mouseleave', function() {
-            modelImg.style.transform = '';
-        });
+        // Update current tab and CTA
+        currentTab = targetTab;
+        updateMainCTA();
     }
+    
+    // Update CTA text and href based on active tab
+    function updateMainCTA() {
+        if (!mainCta) return;
+        
+        if (currentTab === 'online') {
+            mainCta.textContent = 'ĐĂNG KÝ COACHING ONLINE';
+        } else {
+            mainCta.textContent = 'INBOX ĐỂ GIỮ LỊCH';
+        }
+        // Always use Zalo link
+        mainCta.setAttribute('href', 'https://zalo.me/0903536212');
+    }
+    
+    // Initialize CTA
+    updateMainCTA();
+    
+    // Tab switching handler (works for both desktop and mobile)
+    pricingTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            switchTab(targetTab);
+        });
+    });
+    
+    // ============================================
+    // PRICING CARD BUTTON HANDLERS
+    // ============================================
+    const cardButtons = document.querySelectorAll('.pricing__card-button');
+    
+    cardButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const selectValue = this.getAttribute('data-select');
+            const card = this.closest('.pricing__card');
+            
+            // Highlight selected card
+            if (card) {
+                card.classList.add('is-selected');
+                setTimeout(() => {
+                    card.classList.remove('is-selected');
+                }, 1500);
+            }
+            
+            // Handle based on selection - All buttons redirect to Zalo
+            if (selectValue.startsWith('online-')) {
+                // Switch to online tab if not already
+                if (currentTab !== 'online') {
+                    const onlineTab = document.querySelector('[data-tab="online"]');
+                    if (onlineTab) {
+                        switchTab('online', onlineTab);
+                    }
+                }
+                // Close bottom sheet if open (mobile)
+                closeBottomSheet();
+                // Redirect to Zalo
+                window.location.href = 'https://zalo.me/0903536212';
+            } else if (selectValue.startsWith('offline-')) {
+                // Switch to offline tab if not already
+                if (currentTab !== 'offline') {
+                    const offlineTab = document.querySelector('[data-tab="offline"]');
+                    if (offlineTab) {
+                        switchTab('offline', offlineTab);
+                    }
+                }
+                // Close bottom sheet if open (mobile)
+                closeBottomSheet();
+                // Redirect to Zalo
+                window.location.href = 'https://zalo.me/0903536212';
+            }
+        });
+    });
+    
+    // ============================================
+    // MAIN CTA BUTTON HANDLER
+    // ============================================
+    // CTA is now an anchor tag, so it will handle navigation naturally
+    // We just need to update the href when tab changes
+    
+    // Tối ưu: bỏ floating animation và parallax để tăng performance
     
     // ============================================
     // HIỆU ỨNG TEXT
     // ============================================
     
-    // Typing effect cho title
-    const mainTitle = document.querySelector('.main-title');
-    if (mainTitle) {
-        const text = mainTitle.textContent;
-        mainTitle.textContent = '';
-        mainTitle.style.opacity = '1';
-        
-        let i = 0;
-        const typeInterval = setInterval(() => {
-            if (i < text.length) {
-                mainTitle.textContent += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(typeInterval);
-                // Thêm glow effect sau khi typing xong
-                mainTitle.style.textShadow = '2px 2px 6px rgba(0, 0, 0, 0.6), 0 0 20px rgba(30, 109, 255, 0.3)';
-            }
-        }, 80);
-    }
+    // Tối ưu: bỏ các animation phức tạp để tăng performance
+    // Giữ lại CSS animations đơn giản từ styles.css
     
-    // Fade in từng từ cho subtitle
-    const subtitle = document.querySelector('.subtitle');
-    if (subtitle) {
-        const text = subtitle.textContent;
-        const words = text.split('•');
-        subtitle.innerHTML = '';
-        
-        words.forEach((word, index) => {
-            const span = document.createElement('span');
-            span.textContent = word.trim();
-            span.style.opacity = '0';
-            span.style.transition = 'opacity 0.6s ease';
-            if (index < words.length - 1) {
-                span.textContent += ' • ';
-            }
-            subtitle.appendChild(span);
-            
-            setTimeout(() => {
-                span.style.opacity = '1';
-            }, 1000 + index * 200);
-        });
-    }
-    
-    // Slide in và glow cho bullet items
-    const bulletItems = document.querySelectorAll('.bullet-list li');
-    bulletItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(-30px)';
-        item.style.transition = 'all 0.6s ease';
-        
-        setTimeout(() => {
-            item.style.opacity = '1';
-            item.style.transform = 'translateX(0)';
-            
-            // Thêm glow effect sau khi slide in
-            setTimeout(() => {
-                item.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.3)';
-                setTimeout(() => {
-                    item.style.textShadow = '1px 1px 3px rgba(0, 0, 0, 0.5)';
-                }, 500);
-            }, 300);
-        }, 1500 + index * 150);
-    });
-    
-    // Pulse effect cho CTA button text
-    const ctaButtonText = ctaButton?.textContent;
-    if (ctaButton && ctaButtonText) {
-        setInterval(() => {
-            ctaButton.style.textShadow = '0 0 15px rgba(255, 255, 255, 0.5)';
-            setTimeout(() => {
-                ctaButton.style.textShadow = 'none';
-            }, 600);
-        }, 3000);
-    }
-    
-    // Glow effect cho tag
-    const tag = document.querySelector('.tag');
-    if (tag) {
-        setInterval(() => {
-            tag.style.boxShadow = '0 0 15px rgba(30, 109, 255, 0.6)';
-            setTimeout(() => {
-                tag.style.boxShadow = 'none';
-            }, 800);
-        }, 4000);
-    }
-    
-    // Text reveal animation cho service badges
-    const serviceBadges = document.querySelectorAll('.service-badge');
-    serviceBadges.forEach((badge, index) => {
-        badge.style.opacity = '0';
-        badge.style.transform = 'scale(0.8)';
-        badge.style.transition = 'all 0.5s ease';
-        
-        setTimeout(() => {
-            badge.style.opacity = '1';
-            badge.style.transform = 'scale(1)';
-        }, 2000 + index * 200);
-    });
-    
-    // ============================================
-    // WATER EFFECT
-    // ============================================
-    function triggerWaterEffect() {
-        const waterContainer = document.getElementById('water-effect');
-        const modelImg = document.querySelector('.modelImg');
-        const heroRight = document.querySelector('.hero__right');
-        
-        if (!waterContainer || !modelImg || !heroRight) return;
-        
-        // Activate water effect
-        waterContainer.classList.add('active');
-        modelImg.classList.add('water-effect');
-        heroRight.classList.add('water-active');
-        
-        // Remove classes after animation (longest animation is ~3.8s for mist)
-        setTimeout(() => {
-            waterContainer.classList.remove('active');
-            modelImg.classList.remove('water-effect');
-            heroRight.classList.remove('water-active');
-        }, 4000); // Match longest animation duration + buffer
-    }
-    
-    // Auto-trigger water effect every 3-5 seconds (desktop only to tránh giật ảnh trên mobile)
-    function startWaterLoop() {
-        const interval = 3000 + Math.random() * 2000; // 3-5 seconds
-        
-        setTimeout(() => {
-            triggerWaterEffect();
-            startWaterLoop(); // Loop
-        }, interval);
-    }
-    
-    // Start water loop after page load (skip mobile để tránh giật ảnh)
-    if (!isMobile) {
-        setTimeout(() => {
-            startWaterLoop();
-        }, 2000); // Start after 2 seconds
-    }
+    // Tối ưu: bỏ water effect để tăng performance
 });
 

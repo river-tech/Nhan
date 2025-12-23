@@ -2,14 +2,14 @@
    DARK-WATER FITNESS THEME - PREMIUM
    ============================================ */
 :root {
-    /* Dark Water Palette */
+    /* Dark Water Palette - Darker tone */
     --black: #000000;
-    --navy-blue: #0A1628;
-    --dark-navy: #050A14;
-    --dark-teal: #0D1F2E;
-    --deep-teal: #0F2535;
-    --charcoal: #1A1A1A;
-    --dark-gray: #2D2D2D;
+    --navy-blue: #050A14;
+    --dark-navy: #020509;
+    --dark-teal: #080F18;
+    --deep-teal: #0A1219;
+    --charcoal: #0F0F0F;
+    --dark-gray: #1A1A1A;
     
     /* Water Accents */
     --water-blue: #1E3A5F;
@@ -153,7 +153,6 @@
 
 html, body {
     height: 100%;
-    overflow: hidden;
     margin: 0;
     padding: 0;
 }
@@ -163,8 +162,15 @@ body {
     background: var(--black);
     color: var(--white);
     overflow-x: hidden;
-    overflow-y: hidden;
     line-height: 1.4;
+}
+
+/* Mobile: Prevent scroll */
+@media (max-width: 768px) {
+    html, body {
+        height: 100svh;
+        overflow: hidden;
+    }
 }
 
 /* ============================================
@@ -176,7 +182,7 @@ body {
     width: 100vw;
     position: relative;
     /* Fallback background - Deep black, navy blue, dark teal gradient */
-    background: linear-gradient(135deg, var(--black) 0%, var(--navy-blue) 30%, var(--dark-teal) 60%, var(--deep-teal) 100%);
+    background: linear-gradient(135deg, var(--black) 0%, var(--dark-navy) 30%, var(--dark-teal) 60%, var(--deep-teal) 100%);
     /* Desktop/Tablet background image (>= 640px) */
     background-image: url('bg_1.jpeg');
     background-size: cover;
@@ -255,25 +261,10 @@ body {
 }
 
 /* ============================================
-   WATER EFFECT - Cinematic Premium Energy Aura
+   WATER EFFECT - Tối ưu: tắt hoàn toàn để tăng performance
    ============================================ */
 .hero__water {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%; /* Reduced width - keep water to right side */
-    height: 100%;
-    pointer-events: none;
-    z-index: 1; /* Behind model (z-index 2) */
-    overflow: hidden;
-    opacity: 0;
-    transform-origin: top right;
-    /* Clip to right and lower area only */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
-}
-
-.hero__water.active {
-    opacity: 1;
+    display: none; /* Tắt water effect để tối ưu performance */
 }
 
 /* Refined Directional Water Streams - Navy/Teal dynamic water */
@@ -678,7 +669,7 @@ body {
 .hero__image-dark-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.28); /* phủ đen nhẹ */
+    background: transparent; /* bỏ phủ đen để không có vệt đen trên avatar */
     z-index: 1.5;                   /* Trên ảnh (1), dưới overlay chính (2) */
     pointer-events: none;
 }
@@ -885,6 +876,7 @@ body {
    CTA BUTTON
    ============================================ */
 .cta-button {
+    display: inline-block;
     padding: 12px 16px;
     font-size: 13px;
     font-weight: 700;
@@ -902,6 +894,8 @@ body {
     animation: fadeInUp 0.6s ease-out 0.8s forwards; /* bỏ nháy/pulse */
     opacity: 1;
     backdrop-filter: blur(8px);
+    text-decoration: none;
+    text-align: center;
 }
 
 .cta-button:hover {
@@ -918,6 +912,357 @@ body {
 }
 
 /* ============================================
+   PRICING MOBILE BUTTON
+   ============================================ */
+.pricing-mobile-button {
+    display: none; /* Hidden on desktop */
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--white);
+    background: var(--electric-blue);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0.5rem 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 3px 12px var(--electric-blue-glow), 0 0 20px rgba(30, 109, 255, 0.3);
+}
+
+.pricing-mobile-button:hover {
+    background: #2a7dff;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(30, 109, 255, 0.6), 0 0 30px rgba(30, 109, 255, 0.5);
+}
+
+.pricing-mobile-button:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   PRICING SECTION
+   ============================================ */
+.pricing {
+    margin: 1rem 0;
+    padding: 1.25rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 0.6s ease-out 1s both;
+}
+
+/* Hide pricing section on mobile */
+@media (max-width: 768px) {
+    .pricing {
+        display: none;
+    }
+    
+    .pricing-mobile-button {
+        display: block;
+    }
+}
+
+.pricing__tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.75rem;
+}
+
+.pricing__tab {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.pricing__tab:hover:not(.pricing__tab--active) {
+    color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.pricing__tab--active {
+    color: var(--white);
+    background: var(--electric-blue);
+    border-color: var(--electric-blue);
+    box-shadow: 0 0 20px var(--electric-blue-glow), 
+                0 0 40px rgba(30, 109, 255, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+    transform: translateY(-1px);
+}
+
+.pricing__tab--active:hover {
+    background: #2a7dff;
+    box-shadow: 0 0 25px var(--electric-blue-glow), 
+                0 0 50px rgba(30, 109, 255, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+.pricing__tab:focus:not(.pricing__tab--active) {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.pricing__tab--active:focus {
+    outline: none;
+    box-shadow: 0 0 20px var(--electric-blue-glow), 
+                0 0 40px rgba(30, 109, 255, 0.4),
+                0 0 0 2px rgba(255, 255, 255, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.pricing__panel {
+    display: none;
+}
+
+.pricing__panel--active {
+    display: block;
+}
+
+.pricing__offline-header {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.pricing__offline-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pricing__offline-subtitle {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.pricing__grid {
+    display: grid;
+    gap: 0.75rem;
+    align-items: start;
+}
+
+.pricing__grid--online {
+    grid-template-columns: 1fr;
+}
+
+.pricing__grid--offline {
+    grid-template-columns: 1fr;
+}
+
+.pricing__card {
+    position: relative;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.pricing__card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.pricing__card--featured {
+    border-color: rgba(30, 109, 255, 0.4);
+    box-shadow: 0 0 16px rgba(30, 109, 255, 0.2);
+}
+
+.pricing__card--popular {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 12px rgba(255, 255, 255, 0.15);
+}
+
+.pricing__card--elite {
+    border-color: var(--electric-blue);
+    box-shadow: 0 0 20px var(--electric-blue-glow);
+    transform: translateY(-2px);
+}
+
+.pricing__card.is-selected {
+    animation: cardSelected 1.5s ease;
+}
+
+@keyframes cardSelected {
+    0%, 100% {
+        box-shadow: 0 0 20px var(--electric-blue-glow);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px var(--electric-blue-glow);
+        transform: scale(1.02);
+    }
+}
+
+.pricing__card-header {
+    margin-bottom: 0.75rem;
+}
+
+.pricing__card-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--white);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pricing__card-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--electric-blue);
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+}
+
+.pricing__card-period,
+.pricing__card-savings {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.25rem;
+}
+
+.pricing__card-savings {
+    color: rgba(30, 109, 255, 0.9);
+    font-weight: 600;
+}
+
+.pricing__benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+}
+
+.pricing__benefits li {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.pricing__benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--electric-blue);
+    font-weight: 700;
+}
+
+.pricing__card-button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--white);
+    background: var(--electric-blue);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 12px var(--electric-blue-glow), 0 0 20px rgba(30, 109, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    margin-top: auto;
+}
+
+.pricing__card-button:hover {
+    background: #2a7dff;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(30, 109, 255, 0.6), 0 0 30px rgba(30, 109, 255, 0.5);
+}
+
+.pricing__card-button:active {
+    transform: translateY(0) scale(1);
+}
+
+.pricing__note {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Badge Component */
+.badge {
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 0.25rem 0.6rem;
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    z-index: 1;
+}
+
+.badge--best-value {
+    background: var(--electric-blue);
+    color: var(--white);
+    box-shadow: 0 0 12px var(--electric-blue-glow);
+}
+
+.badge--start {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.badge--popular {
+    background: rgba(255, 255, 255, 0.25);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.badge--elite {
+    background: var(--electric-blue);
+    color: var(--white);
+    box-shadow: 0 0 16px var(--electric-blue-glow);
+}
+
+/* ============================================
    CONTACT INFO
    ============================================ */
 .contact-info {
@@ -928,30 +1273,60 @@ body {
     padding: 0.75rem 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     animation: fadeInUp 0.6s ease-out 0.9s both;
-    /* Glass mờ cho contact info block */
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* Glass mờ cho contact info block - darker */
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    width: fit-content;
+    max-width: 100%;
+}
+
+/* Mobile: Contact info pill style */
+@media (max-width: 768px) {
+    .contact-info {
+        width: auto;
+        max-width: 100%;
+        padding: 0.6rem 0.9rem;
+    }
 }
 
 .contact-item {
     display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
     gap: 0.4rem;
     font-size: 11px;
     line-height: 1.3;
 }
 
 .contact-label {
+    flex: 0 0 auto;
     font-weight: 600;
     color: var(--silver);
 }
 
 .contact-value {
+    flex: 1;
+    min-width: 0;
     color: var(--white);
     font-weight: 400;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.contact-link {
+    color: var(--electric-blue);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.contact-link:hover {
+    color: #2a7dff;
+    text-shadow: 0 0 8px var(--electric-blue-glow);
 }
 
 /* ============================================
@@ -1098,52 +1473,24 @@ body {
     object-fit: contain;
     object-position: bottom right;
     display: block;
-    /* Bo góc ảnh mạnh hơn - bo tròn nhiều hơn */
-    border-radius: 45px;
-    overflow: hidden;
-    /* Đảm bảo không có khoảng trống - clip path để bo góc chắc chắn */
-    clip-path: inset(0 round 45px);
+    /* Bỏ bo góc */
+    border-radius: 0;
+    overflow: visible;
     background: transparent;
     /* Đảm bảo fill hết không gian - không có gap */
     margin: 0;
     padding: 0;
-    /* Rim light effect - cool blue-white glow với hiệu ứng thở mượt */
-    filter: 
-        drop-shadow(0 0 15px rgba(184, 230, 255, 0.5))
-        drop-shadow(0 0 30px rgba(184, 230, 255, 0.3))
-        drop-shadow(0 0 50px rgba(30, 58, 95, 0.2))
-        drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.4))
-        contrast(1.08) 
-        brightness(1.05);
+    /* Tối ưu: giảm filter để tăng performance */
+    filter: brightness(1.02);
     transform: translate(8px, 10px);
-    z-index: 2; /* Above water and bloom */
-    animation: fadeInRight 1s ease-out 0.4s both, float 3s ease-in-out 1.5s infinite, rimLightBreathing 3s ease-in-out infinite;
-    transition: filter 0.3s ease-out;
+    z-index: 2;
+    animation: fadeInRight 0.8s ease-out 0.3s both;
+    transition: transform 0.2s ease;
     /* Ensure clean cutout appearance */
     mix-blend-mode: normal;
 }
 
-/* Hiệu ứng thở mượt cho rim light - không giật */
-@keyframes rimLightBreathing {
-    0%, 100% {
-        filter: 
-            drop-shadow(0 0 15px rgba(184, 230, 255, 0.5))
-            drop-shadow(0 0 30px rgba(184, 230, 255, 0.3))
-            drop-shadow(0 0 50px rgba(30, 58, 95, 0.2))
-            drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.4))
-            contrast(1.08) 
-            brightness(1.05);
-    }
-    50% {
-        filter: 
-            drop-shadow(0 0 20px rgba(184, 230, 255, 0.6))
-            drop-shadow(0 0 40px rgba(184, 230, 255, 0.4))
-            drop-shadow(0 0 60px rgba(30, 58, 95, 0.3))
-            drop-shadow(-10px -5px 30px rgba(0, 0, 0, 0.4))
-            contrast(1.1) 
-            brightness(1.08);
-    }
-}
+/* Tối ưu: bỏ animation phức tạp để tăng performance */
 
 /* Lightning flash effect on model - Glow mềm mại loe tròn như giông bão */
 .modelImg.lightning-flash {
@@ -1243,6 +1590,67 @@ body {
       MOBILE LAYOUT FIX - max-width: 768px
       ============================================ */
    @media (max-width: 768px) {
+    /* Mobile: chỉ hiện nút xem bảng giá, ẩn CTA chính */
+    #main-cta {
+        display: none;
+    }
+
+    /* Pricing Section Mobile */
+    .pricing {
+        margin: 0.75rem 0;
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .pricing__tabs {
+        gap: 6px;
+        margin-bottom: 1rem;
+    }
+    
+    .pricing__tab {
+        font-size: 10px;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .pricing__card {
+        padding: 0.85rem;
+    }
+    
+    .pricing__card-price {
+        font-size: 16px;
+    }
+    
+    .pricing__card-title {
+        font-size: 10px;
+    }
+    
+    .pricing__benefits li {
+        font-size: 9px;
+    }
+    
+    .pricing__card-button {
+        font-size: 9px;
+        padding: 0.45rem 0.9rem;
+    }
+    
+    .pricing__offline-title {
+        font-size: 11px;
+    }
+    
+    .pricing__offline-subtitle {
+        font-size: 9px;
+    }
+    
+    .pricing__note {
+        font-size: 8px;
+        margin-top: 0.75rem;
+        padding-top: 0.75rem;
+    }
+    
+    .badge {
+        font-size: 7px;
+        padding: 0.2rem 0.5rem;
+    }
     /* ============================================
        CONTACT INFO - Mobile styling
        ============================================ */
@@ -1297,137 +1705,219 @@ body {
       );
     }
   
-    /* ============================================
-       HERO CONTENT - Mobile: Flex column layout
-       ============================================ */
-    .hero__content{
-      display: flex !important;           /* Override grid */
-      flex-direction: column !important;  /* Text trên, ảnh dưới */
-      gap: 0;
-      width: 100%;
-      max-width: 100%;
-      height: auto;                      /* Auto height để chứa cả text và ảnh */
-      min-height: auto;
-    }
-  
-    /* ============================================
-       LEFT COLUMN - Text content (ở trên)
-       ============================================ */
-    .hero__left{
-      position: relative;
-      width: 100% !important;
-      max-width: 100% !important;
-      padding-right: 12px;
-      z-index: 10;
-      order: 1;                          /* Text ở trên */
-      flex-shrink: 0;                     /* Không bị co lại */
+    /* Text shadow for readability */
+    .main-title, .subtitle, .bullet-list li {
+        text-shadow: 0 2px 10px rgba(0,0,0,0.75), 0 0 15px rgba(0,0,0,0.5);
     }
     
-    .main-title, .subtitle, .bullet-list li{
-        text-shadow: 0 2px 10px rgba(0,0,0,0.65);
-      }
-  
-    /* ============================================
-       RIGHT COLUMN - Image container (ở dưới)
-       ============================================ */
-    .hero__right{
-      position: relative !important;      /* Override absolute nếu có */
-      width: 100% !important;
-      height: auto !important;            /* Auto height để chứa ảnh */
-      min-height: 400px;                  /* Min height để đảm bảo ảnh có không gian */
-      z-index: 1;
-      overflow: visible !important;       /* QUAN TRỌNG: Không cắt ảnh */
-      padding: 0;
-      margin: 0;
-      max-width: 100%;
-      order: 2;                          /* Ảnh ở dưới */
-      display: flex !important;
-      align-items: center;               /* Căn giữa ảnh */
-      justify-content: center;
-      flex-shrink: 0;
+    /* CTA button styling */
+    .cta-button {
+        position: relative;
+        z-index: 5;
+        background: rgba(30, 109, 255, 0.92);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.18);
     }
-  
-    /* ============================================
-       MODEL IMAGE - Mobile: Hiển thị rõ, không bị cắt
-       ============================================ */
-    .modelImg{
-      /* QUAN TRỌNG: Reset tất cả absolute positioning */
-      position: relative !important;
-      bottom: auto !important;
-      right: auto !important;
-      left: auto !important;
-      top: auto !important;
-      
-      /* Display và sizing */
-      display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      
-      /* Width và height - đảm bảo không méo */
-      width: 100% !important;
-      max-width: 100% !important;
-      height: auto !important;
-      min-height: 400px;                 /* Min height để ảnh không quá nhỏ */
-      max-height: 80vh;                  /* Max height để không quá lớn */
-      
-      /* Object fit - giữ tỷ lệ, không cắt đầu/chân */
-      object-fit: contain !important;    /* contain thay vì cover để không cắt */
-      object-position: center bottom;    /* Căn bottom nhưng center horizontal */
-      
-      /* Bo góc */
-      border-radius: 45px;
-      overflow: hidden;
-      clip-path: inset(0 round 45px);
-      
-      /* Transform - reset tất cả */
-      transform: none !important;
-      transform-origin: center;
-      
-      /* Z-index và spacing */
-      z-index: 1;
-      margin: 1.5rem auto 0;             /* Margin top để cách text, auto để center */
-      padding: 0;
-      
-      /* Filter và animation - giữ lại nhưng nhẹ hơn */
-      filter: 
-        drop-shadow(0 0 10px rgba(184, 230, 255, 0.3))
-        drop-shadow(0 0 20px rgba(30, 58, 95, 0.2))
-        contrast(1.05) 
-        brightness(1.02);
-      
-      /* Bỏ animation phức tạp trên mobile */
-      animation: fadeInUp 0.8s ease-out;
-    }
-  
-    /* ============================================
-       TEXT SHADOW - Mobile: Tăng độ rõ
-       ============================================ */
-    .subtitle,
-    .bullet-list li{
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.75), 0 0 10px rgba(0,0,0,0.45);
-    }
-  
-    /* ============================================
-       CTA BUTTON - Mobile: Đảm bảo không bị che
-       ============================================ */
-    .cta-button{
-      position: relative;
-      z-index: 5;
-      background: rgba(30, 109, 255, 0.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.18);
-      margin-top: 1rem;                  /* Margin để cách text */
-    }
-  
-    /* badges “premium” hơn */
-    .service-badge{
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+    
+    /* Service badges */
+    .service-badge {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.14);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
     }
   }
+
+/* ============================================
+   BOTTOM SHEET MODAL (Mobile only)
+   ============================================ */
+.bottom-sheet-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.bottom-sheet-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70vh;
+    max-height: 70vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.bottom-sheet.open {
+    transform: translateY(0);
+}
+
+.bottom-sheet__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.bottom-sheet__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bottom-sheet__close {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.bottom-sheet__close:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.bottom-sheet__close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.bottom-sheet__content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1.25rem 1.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Bottom sheet pricing styles */
+.bottom-sheet .pricing__tabs {
+    margin-bottom: 1.5rem;
+}
+
+.bottom-sheet .pricing__grid {
+    gap: 1rem;
+}
+
+.bottom-sheet .pricing__card {
+    padding: 1.25rem;
+}
+
+.bottom-sheet .pricing__card-price {
+    font-size: 20px;
+}
+
+.bottom-sheet .pricing__card-title {
+    font-size: 12px;
+}
+
+.bottom-sheet .pricing__benefits li {
+    font-size: 11px;
+}
+
+.bottom-sheet .pricing__card-button {
+    font-size: 11px;
+    padding: 0.65rem 1.25rem;
+}
+
+.bottom-sheet .pricing__note {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    font-size: 10px;
+}
+
+/* Hide bottom sheet on desktop */
+@media (min-width: 769px) {
+    .bottom-sheet-overlay,
+    .bottom-sheet {
+        display: none !important;
+    }
+}
+
+/* Desktop: Pricing Grid - 2 columns for Online, 3 columns for Offline */
+@media (min-width: 768px) {
+    .pricing__grid--online {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: stretch;
+    }
+    
+    .pricing__grid--offline {
+        grid-template-columns: repeat(3, 1fr);
+        align-items: stretch;
+    }
+    
+    .pricing__card-price {
+        font-size: 22px;
+    }
+    
+    .pricing__card-title {
+        font-size: 12px;
+    }
+    
+    .pricing__benefits li {
+        font-size: 11px;
+    }
+    
+    .pricing__tab {
+        font-size: 12px;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .pricing__offline-title {
+        font-size: 14px;
+    }
+    
+    .pricing__offline-subtitle {
+        font-size: 11px;
+    }
+    
+    .pricing__card-button {
+        font-size: 11px;
+        padding: 0.6rem 1.2rem;
+    }
+    
+    .pricing__note {
+        font-size: 10px;
+    }
+}
 
 /* Tablet: 640px - 1024px */
 @media (min-width: 640px) {
@@ -1513,10 +2003,10 @@ body {
         transform: translate(12px, 15px) !important;
         transform-origin: bottom right !important;
         margin: 0 !important;
-        /* Bo góc mạnh và đảm bảo không hở */
-        border-radius: 45px;
-        overflow: hidden;
-        clip-path: inset(0 round 45px);
+        /* Bỏ bo góc */
+        border-radius: 0;
+        overflow: visible;
+        background: transparent;
         z-index: 2 !important;
     }
     
@@ -1610,10 +2100,10 @@ body {
         transform: translate(20px, 18px) scale(1.25) !important;
         transform-origin: bottom right !important;
         margin: 0 !important;
-        /* Bo góc mạnh và đảm bảo không hở */
-        border-radius: 45px;
-        overflow: hidden;
-        clip-path: inset(0 round 45px);
+        /* Bỏ bo góc */
+        border-radius: 0;
+        overflow: visible;
+        background: transparent;
         z-index: 2 !important;
     }
     
@@ -1662,147 +2152,173 @@ body {
         transform: translate(20px, 18px) scale(1.3) !important;
         transform-origin: bottom right !important;
         margin: 0 !important;
-        /* Bo góc mạnh và đảm bảo không hở */
-        border-radius: 45px;
-        overflow: hidden;
-        clip-path: inset(0 round 45px);
+        /* Bỏ bo góc */
+        border-radius: 0;
+        overflow: visible;
+        background: transparent;
         z-index: 2 !important;
     }
 }
 
-/* ============================================
-   MOBILE FULLSCREEN HERO (max-width: 768px)
-   - 1 screen, no scroll
-   - Model image = full background
-   - Text overlay on top (poster style)
-   ============================================ */
-@media (max-width: 768px) {
+   /* ============================================
+      MOBILE FULLSCREEN HERO (max-width: 768px)
+      - 1 screen, no scroll
+      - Model image = full background (cover)
+      - Text overlay on top (poster style)
+      ============================================ */
+   @media (max-width: 768px) {
     html,
     body {
-        height: 100svh;                /* Safari friendly full height */
+        height: 100svh;
         min-height: 100svh;
-        overflow: hidden;              /* Không cho scroll */
+        overflow: hidden;
     }
 
     .hero {
         position: relative;
-        width: 100%;
-        height: 100svh;                 /* Khoá hero đúng 1 màn */
+        width: 100vw;
+        max-width: 100vw;
+        height: 100svh;
         min-height: 100svh;
         padding: 0;
         overflow: hidden;
     }
 
+    /* Tránh bất kỳ max-width nào làm thu nhỏ nội dung */
     .hero__content {
         position: relative;
-        width: 100%;
+        width: 100vw;
+        max-width: 100vw;
         height: 100%;
         min-height: 100%;
-        display: flex !important;
-        flex-direction: column;
-        justify-content: space-between; /* Dàn đều text + contact trong 100vh */
-        align-items: flex-start;
-        padding: calc(1.2rem + env(safe-area-inset-top, 0)) 1.4rem
-                 calc(1.4rem + env(safe-area-inset-bottom, 0));
-        gap: 0.4rem;
-        z-index: 2;                    /* Above background image */
+        display: block !important; /* Override grid on mobile */
     }
 
+    /* Background image layer: full width, không để lộ background đen */
     .hero__right {
         position: absolute !important;
-        inset: 0;                      /* Fill hero */
-        z-index: 1;                    /* Background layer */
+        inset: 0;
+        width: 100vw;
+        max-width: 100vw;
+        z-index: 1;
         margin: 0;
         padding: 0;
         display: block;
         overflow: hidden;
-        pointer-events: none;          /* Keep text interactions clean */
+        pointer-events: none;
     }
 
     .modelImg {
         position: absolute !important;
         inset: 0;
-        width: 100% !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
         height: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
         object-fit: cover !important;
-        object-position: center center !important; /* Center ảnh trên mobile */
-        border-radius: 28px;            /* Bo góc nhẹ cho mobile */
-        clip-path: inset(0 round 28px);
+        object-position: center center !important;
+        border-radius: 0;
+        clip-path: none;
         transform: none !important;
         z-index: 1;
-        filter: brightness(1.02) contrast(1.05);
-        animation: none !important;     /* tắt mọi nháy/giật ảnh */
+        filter: brightness(0.95) contrast(1.05);
+        animation: none !important;
     }
 
+    /* Dark overlay for text readability */
     .hero__overlay {
         position: absolute;
         inset: 0;
-        z-index: 2;                    /* Above image, below text */
+        z-index: 2;
         background: linear-gradient(
             90deg,
-            rgba(0, 0, 0, 0.96) 0%,
-            rgba(0, 0, 0, 0.92) 35%,
-            rgba(0, 0, 0, 0.6) 55%,
-            rgba(0, 0, 0, 0.15) 80%,
-            rgba(0, 0, 0, 0.00) 100%
+            rgba(0, 0, 0, 0.92) 0%,
+            rgba(0, 0, 0, 0.85) 40%,
+            rgba(0, 0, 0, 0.65) 70%,
+            rgba(0, 0, 0, 0.3) 100%
         );
         pointer-events: none;
     }
 
+    /* Text overlay */
     .hero__left {
-        position: relative;
-        z-index: 3;                     /* Top-most */
-        max-width: 88vw;
-        width: 100%;
-        padding-right: 0;
-        padding-top: 0;
-        gap: 0.45rem;
-    }
-
-    /* Ensure contact & CTA still above background */
-    /* CTA: luôn sáng, không nhấp nháy trên mobile */
-    .cta-button,
-    .cta-button:hover {
-        position: relative;
-        z-index: 4;
-        animation: none !important; /* tắt mọi nháy */
-        box-shadow: 0 3px 12px var(--electric-blue-glow),
-                    0 0 20px rgba(30, 109, 255, 0.3);
-    }
-
-    /* Contact + Social: hẹp chiều ngang, gọn hơn */
-    .contact-info,
-    .social-icons {
-        position: relative;
-        z-index: 4;
-        width: min(360px, 100%);
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        padding: 0;
-        margin-bottom: env(safe-area-inset-bottom, 0);
-    }
-
-    .social-icons {
+        position: absolute !important;
+        inset: 0;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
         justify-content: flex-start;
-        gap: 0.6rem;
+        align-items: flex-start;
+        padding: calc(1rem + env(safe-area-inset-top, 0)) 1rem
+                 calc(1rem + env(safe-area-inset-bottom, 0));
+        gap: 0.4rem;
+        max-width: 100%;
+        overflow: hidden;
+    }
+    
+    /* Giảm font-size và gap để fit trong 100svh */
+    .hero__left .tag {
+        font-size: 8px;
+        padding: 0.3rem 0.6rem;
+        flex-shrink: 0;
+    }
+    
+    .hero__left .main-title {
+        font-size: clamp(18px, 5vw, 24px);
+        line-height: 1.05;
+        flex-shrink: 0;
+    }
+    
+    .hero__left .subtitle {
+        font-size: 10px;
+        flex-shrink: 0;
+    }
+    
+    .hero__left .bullet-list {
+        gap: 0.3rem;
+        flex-shrink: 0;
+    }
+    
+    .hero__left .bullet-list li {
+        font-size: 10px;
+    }
+    
+    .hero__left .services {
+        gap: 0.4rem;
+        flex-shrink: 0;
+    }
+    
+    .hero__left .service-badge {
+        font-size: 9px;
+        padding: 0.35rem 0.7rem;
+    }
+    
+    .hero__left .cta-button {
+        font-size: 11px;
+        padding: 0.6rem 1.2rem;
+        margin: 0.2rem 0;
+        flex-shrink: 0;
+    }
+    
+    .hero__left .pricing-mobile-button {
+        flex-shrink: 0;
+        margin: 0.3rem 0;
+    }
+    
+    .hero__left .contact-info {
+        margin-top: auto;
+        padding: 0.6rem 0.9rem;
+        flex-shrink: 0;
+        width: auto;
+        max-width: calc(100% - 2rem);
+    }
+    
+    .hero__left .social-icons {
+        margin-top: 0.5rem;
+        padding: 0.6rem;
+        gap: 0.5rem;
+        flex-shrink: 0;
     }
 
-    /* Tắt tất cả animation "giật" trên mobile */
-    .hero__content *,
-    .modelImg,
-    .cta-button,
-    .contact-info,
-    .social-icons,
-    .service-badge,
-    .bullet-list li,
-    .tag,
-    .main-title,
-    .subtitle {
-        animation: none !important;
-    }
 }
