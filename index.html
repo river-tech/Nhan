@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,200 +10,93 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="hero">
         <!-- Overlay gradient để text không bị che -->
         <div class="hero__overlay"></div>
-        
+
         <!-- Decorative shapes -->
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
-        
+
         <div class="hero__content">
             <!-- Left Column: Text Content -->
             <div class="hero__left">
                 <div class="tag">PERSONAL TRAINING</div>
-                
+
                 <h1 class="main-title">RIVER NGUYEN</h1>
-                
+
                 <p class="subtitle">TĂNG CƠ • GIẢM MỠ </p>
-                
+
                 <ul class="bullet-list">
                     <li>
                         <span class="bullet-icon">✓</span>
                         <span>Huấn luyện 1:1 cá nhân hoá</span>
-                      </li>
-                      <li>
+                    </li>
+                    <li>
                         <span class="bullet-icon">✓</span>
                         <span>Sửa form chuẩn – hạn chế chấn thương</span>
-                      </li>
-                      <li>
+                    </li>
+                    <li>
                         <span class="bullet-icon">✓</span>
                         <span>Tư vấn dinh dưỡng từ cơ bản đến nâng cao</span>
-                      </li>
-                      <li>
+                    </li>
+                    <li>
                         <span class="bullet-icon">✓</span>
                         <span>Coaching online 1:1</span>
-                      </li>
+                    </li>
                 </ul>
-                
+
                 <div class="services">
                     <div class="service-badge">Personal Training</div>
                     <div class="service-badge">Online Coaching</div>
                 </div>
-                
-                <a href="tel:+84903536212" class="cta-button" id="main-cta">ĐĂNG KÝ NGAY</a>
-                
-                <!-- Mobile Pricing Button (only visible on mobile) -->
-                <button class="pricing-mobile-button" id="pricing-mobile-btn">XEM BẢNG GIÁ / GIỮ LỊCH</button>
-                
-                <!-- Pricing Section (Desktop only) -->
-                <div class="pricing" id="pricing-section">
-                    <!-- Tabs -->
-                    <div class="pricing__tabs">
-                        <button class="pricing__tab" data-tab="online" role="tab" aria-selected="false">Online Coaching</button>
-                        <button class="pricing__tab pricing__tab--active" data-tab="offline" role="tab" aria-selected="true">Offline Đà Nẵng</button>
-                    </div>
-                    
-                    <!-- Online Tab Content -->
-                    <div class="pricing__panel" id="pricing-online" data-panel="online">
-                        <div class="pricing__grid pricing__grid--online">
-                            <!-- Online 1 Month -->
-                            <div class="pricing__card">
-                                <div class="pricing__card-header">
-                                    <h3 class="pricing__card-title">ONLINE 1 THÁNG</h3>
-                                    <div class="pricing__card-price">1.490.000đ</div>
-                                </div>
-                                <ul class="pricing__benefits">
-                                    <li>Kế hoạch tập cá nhân hóa</li>
-                                    <li>Theo dõi tiến độ tuần</li>
-                                    <li>Chỉnh form qua video</li>
-                                    <li>Tư vấn dinh dưỡng</li>
-                                    <li>Check-in hàng ngày</li>
-                                </ul>
-                                <button class="pricing__card-button" data-select="online-1">Chọn gói</button>
-                            </div>
-                            
-                            <!-- Online 3 Months -->
-                            <div class="pricing__card pricing__card--featured">
-                                <div class="badge badge--best-value">BEST VALUE</div>
-                                <div class="pricing__card-header">
-                                    <h3 class="pricing__card-title">ONLINE 3 THÁNG</h3>
-                                    <div class="pricing__card-price">3.990.000đ</div>
-                                    <div class="pricing__card-savings">Tiết kiệm 510.000đ</div>
-                                </div>
-                                <ul class="pricing__benefits">
-                                    <li>Kế hoạch tập cá nhân hóa</li>
-                                    <li>Theo dõi tiến độ tuần</li>
-                                    <li>Chỉnh form qua video</li>
-                                    <li>Tư vấn dinh dưỡng</li>
-                                    <li>Check-in hàng ngày</li>
-                                    <li>Ưu tiên hỗ trợ 24/7</li>
-                                </ul>
-                                <button class="pricing__card-button" data-select="online-3">Chọn gói</button>
-                            </div>
+
+                <a href="https://zalo.me/0903536212" class="cta-button" id="main-cta" target="_blank">LIÊN HỆ NGAY</a>
+
+                <!-- Social Media Links -->
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/181AKEP8cm/?mibextid=wwXIfr"
+                        class="social-link social-link--facebook" target="_blank" aria-label="Facebook">
+                        <div class="social-link__icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                                    fill="currentColor" />
+                            </svg>
                         </div>
-                    </div>
-                    
-                    <!-- Offline Tab Content -->
-                    <div class="pricing__panel pricing__panel--active" id="pricing-offline" data-panel="offline">
-                        <div class="pricing__offline-header">
-                            <h4 class="pricing__offline-title">Offline PT 1:1 – Đà Nẵng (Bao phòng)</h4>
-                            <p class="pricing__offline-subtitle">Từ 2.990.000đ/tháng – số lượng giới hạn</p>
-                        </div>
-                        <div class="pricing__grid pricing__grid--offline">
-                            <!-- Offline Start -->
-                            <div class="pricing__card">
-                                <div class="badge badge--start">Start</div>
-                                <div class="pricing__card-header">
-                                    <h3 class="pricing__card-title">OFFLINE START</h3>
-                                    <div class="pricing__card-price">2.990.000đ</div>
-                                    <div class="pricing__card-period">14 buổi</div>
-                                </div>
-                                <ul class="pricing__benefits">
-                                    <li>PT 1:1 cá nhân</li>
-                                    <li>Bao phòng tập</li>
-                                    <li>Kế hoạch dinh dưỡng</li>
-                                </ul>
-                                <button class="pricing__card-button" data-select="offline-start">Giữ lịch</button>
-                            </div>
-                            
-                            <!-- Offline Popular -->
-                            <div class="pricing__card pricing__card--popular">
-                                <div class="badge badge--popular">MOST POPULAR</div>
-                                <div class="pricing__card-header">
-                                    <h3 class="pricing__card-title">OFFLINE POPULAR</h3>
-                                    <div class="pricing__card-price">3.190.000đ</div>
-                                    <div class="pricing__card-period">16 buổi • 4 buổi/tuần</div>
-                                </div>
-                                <ul class="pricing__benefits">
-                                    <li>PT 1:1 cá nhân</li>
-                                    <li>Bao phòng tập</li>
-                                    <li>Kế hoạch dinh dưỡng</li>
-                                    <li>Lịch tập linh hoạt</li>
-                                </ul>
-                                <button class="pricing__card-button" data-select="offline-popular">Giữ lịch</button>
-                            </div>
-                            
-                            <!-- Offline Elite -->
-                            <div class="pricing__card pricing__card--elite">
-                                <div class="badge badge--elite">ELITE</div>
-                                <div class="pricing__card-header">
-                                    <h3 class="pricing__card-title">OFFLINE ELITE</h3>
-                                    <div class="pricing__card-price">3.990.000đ</div>
-                                    <div class="pricing__card-period">5 buổi/tuần</div>
-                                </div>
-                                <ul class="pricing__benefits">
-                                    <li>PT 1:1 cá nhân</li>
-                                    <li>Bao phòng tập</li>
-                                    <li>Kế hoạch dinh dưỡng</li>
-                                    <li>Thay đổi nhanh chóng</li>
-                                    <li>Ưu tiên lịch đẹp</li>
-                                </ul>
-                                <button class="pricing__card-button" data-select="offline-elite">Giữ lịch</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Pricing Note -->
-                    <p class="pricing__note">Giá có thể thay đổi theo mục tiêu & lịch trống. Inbox để giữ lịch nhanh.</p>
-                </div>
-                
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <span class="contact-label">SĐT:</span>
-                        <a href="tel:+84903536212" class="contact-value contact-link">+84 903536212</a>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-label">Zalo:</span>
-                        <a href="https://zalo.me/0903536212" class="contact-value contact-link" target="_blank">0903536212</a>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-label">Khu vực:</span>
-                        <span class="contact-value">Đà Nẵng</span>
-                    </div>
-                </div>
-                
-                <div class="social-icons">
-                    <a href="https://www.instagram.com/_river.nguyen_?igsh=ZnN5dmY5dWljcXBr&utm_source=qr" class="social-icon social-icon--instagram" aria-label="Instagram">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
-                        </svg>
+                        <span class="social-link__label">Facebook</span>
                     </a>
-                    <a href="https://www.tiktok.com/@_rvprime?_r=1&_t=ZS-92QchoeYXN1" class="social-icon social-icon--tiktok" aria-label="TikTok">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" fill="currentColor"/>
-                        </svg>
+                    <a href="https://www.tiktok.com/@_rvprime?_r=1&_t=ZS-92QchoeYXN1"
+                        class="social-link social-link--tiktok" target="_blank" aria-label="TikTok">
+                        <div class="social-link__icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
+                                    fill="currentColor" />
+                            </svg>
+                        </div>
+                        <span class="social-link__label">TikTok</span>
                     </a>
-                    <a href="https://www.facebook.com/share/181AKEP8cm/?mibextid=wwXIfr" class="social-icon social-icon--facebook" aria-label="Facebook">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="currentColor"/>
-                        </svg>
+                    <a href="https://www.instagram.com/_river.nguyen_?igsh=ZnN5dmY5dWljcXBr&utm_source=qr"
+                        class="social-link social-link--instagram" target="_blank" aria-label="Instagram">
+                        <div class="social-link__icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                                    fill="currentColor" />
+                            </svg>
+                        </div>
+                        <span class="social-link__label">Instagram</span>
                     </a>
                 </div>
             </div>
-            
+
             <!-- Right Column: Model Image -->
             <div class="hero__right">
                 <!-- Water Energy Effect - Premium Refined -->
@@ -228,130 +122,8 @@
             </div>
         </div>
     </div>
-    
-    <!-- Bottom Sheet Modal (Mobile only) -->
-    <div class="bottom-sheet-overlay" id="bottom-sheet-overlay"></div>
-    <div class="bottom-sheet" id="bottom-sheet">
-        <div class="bottom-sheet__header">
-            <h3 class="bottom-sheet__title">Bảng Giá</h3>
-            <button class="bottom-sheet__close" id="bottom-sheet-close" aria-label="Đóng">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            </button>
-        </div>
-        <div class="bottom-sheet__content">
-            <!-- Tabs -->
-            <div class="pricing__tabs">
-                <button class="pricing__tab" data-tab="online" role="tab" aria-selected="false">Online Coaching</button>
-                <button class="pricing__tab pricing__tab--active" data-tab="offline" role="tab" aria-selected="true">Offline Đà Nẵng</button>
-            </div>
-            
-            <!-- Online Tab Content -->
-            <div class="pricing__panel" id="pricing-online-mobile" data-panel="online">
-                <div class="pricing__grid pricing__grid--online">
-                    <!-- Online 1 Month -->
-                    <div class="pricing__card">
-                        <div class="pricing__card-header">
-                            <h3 class="pricing__card-title">ONLINE 1 THÁNG</h3>
-                            <div class="pricing__card-price">1.490.000đ</div>
-                        </div>
-                        <ul class="pricing__benefits">
-                            <li>Kế hoạch tập cá nhân hóa</li>
-                            <li>Theo dõi tiến độ tuần</li>
-                            <li>Chỉnh form qua video</li>
-                            <li>Tư vấn dinh dưỡng</li>
-                            <li>Check-in hàng ngày</li>
-                        </ul>
-                        <button class="pricing__card-button" data-select="online-1">Chọn gói</button>
-                    </div>
-                    
-                    <!-- Online 3 Months -->
-                    <div class="pricing__card pricing__card--featured">
-                        <div class="badge badge--best-value">BEST VALUE</div>
-                        <div class="pricing__card-header">
-                            <h3 class="pricing__card-title">ONLINE 3 THÁNG</h3>
-                            <div class="pricing__card-price">3.990.000đ</div>
-                            <div class="pricing__card-savings">Tiết kiệm 510.000đ</div>
-                        </div>
-                        <ul class="pricing__benefits">
-                            <li>Kế hoạch tập cá nhân hóa</li>
-                            <li>Theo dõi tiến độ tuần</li>
-                            <li>Chỉnh form qua video</li>
-                            <li>Tư vấn dinh dưỡng</li>
-                            <li>Check-in hàng ngày</li>
-                            <li>Ưu tiên hỗ trợ 24/7</li>
-                        </ul>
-                        <button class="pricing__card-button" data-select="online-3">Chọn gói</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Offline Tab Content -->
-            <div class="pricing__panel pricing__panel--active" id="pricing-offline-mobile" data-panel="offline">
-                <div class="pricing__offline-header">
-                    <h4 class="pricing__offline-title">Offline PT 1:1 – Đà Nẵng (Bao phòng)</h4>
-                    <p class="pricing__offline-subtitle">Từ 2.990.000đ/tháng – số lượng giới hạn</p>
-                </div>
-                <div class="pricing__grid pricing__grid--offline">
-                    <!-- Offline Start -->
-                    <div class="pricing__card">
-                        <div class="badge badge--start">Start</div>
-                        <div class="pricing__card-header">
-                            <h3 class="pricing__card-title">OFFLINE START</h3>
-                            <div class="pricing__card-price">2.990.000đ</div>
-                            <div class="pricing__card-period">14 buổi</div>
-                        </div>
-                        <ul class="pricing__benefits">
-                            <li>PT 1:1 cá nhân</li>
-                            <li>Bao phòng tập</li>
-                            <li>Kế hoạch dinh dưỡng</li>
-                        </ul>
-                        <button class="pricing__card-button" data-select="offline-start">Giữ lịch</button>
-                    </div>
-                    
-                    <!-- Offline Popular -->
-                    <div class="pricing__card pricing__card--popular">
-                        <div class="badge badge--popular">MOST POPULAR</div>
-                        <div class="pricing__card-header">
-                            <h3 class="pricing__card-title">OFFLINE POPULAR</h3>
-                            <div class="pricing__card-price">3.190.000đ</div>
-                            <div class="pricing__card-period">16 buổi • 4 buổi/tuần</div>
-                        </div>
-                        <ul class="pricing__benefits">
-                            <li>PT 1:1 cá nhân</li>
-                            <li>Bao phòng tập</li>
-                            <li>Kế hoạch dinh dưỡng</li>
-                            <li>Lịch tập linh hoạt</li>
-                        </ul>
-                        <button class="pricing__card-button" data-select="offline-popular">Giữ lịch</button>
-                    </div>
-                    
-                    <!-- Offline Elite -->
-                    <div class="pricing__card pricing__card--elite">
-                        <div class="badge badge--elite">ELITE</div>
-                        <div class="pricing__card-header">
-                            <h3 class="pricing__card-title">OFFLINE ELITE</h3>
-                            <div class="pricing__card-price">3.990.000đ</div>
-                            <div class="pricing__card-period">5 buổi/tuần</div>
-                        </div>
-                        <ul class="pricing__benefits">
-                            <li>PT 1:1 cá nhân</li>
-                            <li>Bao phòng tập</li>
-                            <li>Kế hoạch dinh dưỡng</li>
-                            <li>Thay đổi nhanh chóng</li>
-                            <li>Ưu tiên lịch đẹp</li>
-                        </ul>
-                        <button class="pricing__card-button" data-select="offline-elite">Giữ lịch</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Pricing Note -->
-            <p class="pricing__note">Giá có thể thay đổi theo mục tiêu & lịch trống. Inbox để giữ lịch nhanh.</p>
-        </div>
-    </div>
-    
+
     <script src="script.js"></script>
 </body>
+
 </html>
